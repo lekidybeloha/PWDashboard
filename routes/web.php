@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard/{id}', 'HomeController@dashboard')->name('dashboard');
+
+Route::post('/add-dashboard', 'HomeController@add')->name('add');
+Route::post('/add-card', 'HomeController@addCard')->name('addCard');
