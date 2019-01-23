@@ -21,4 +21,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard/{id}', 'HomeController@dashboard')->name('dashboard');
 
 Route::post('/add-dashboard', 'HomeController@add')->name('add');
+Route::post('/add-list', 'HomeController@addList')->name('addList');
 Route::post('/add-card', 'HomeController@addCard')->name('addCard');
+
+
+/**
+ * WS
+ */
+Route::get('/cart-details', 'WSController@getListDetails')->name('cartDetails');
+Route::get('/save-cart-details', 'WSController@saveCartDetails')->name('saveCartDetails');

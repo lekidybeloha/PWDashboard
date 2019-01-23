@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\TaskDetails;
+use App\Lists;
+use App\Organisms;
 use App\Task;
 use Illuminate\Http\Request;
 use App\Dashboard;
@@ -42,22 +45,24 @@ class HomeController extends Controller
     public function dashboard($id)
     {
         $dashboard  = Dashboard::one($id);
-        $toDo       = Task::getByDashboardIdAndStatus($id, 1);
-        $doing      = Task::getByDashboardIdAndStatus($id, 2);
-        $done       = Task::getByDashboardIdAndStatus($id, 3);
-        $archives   = Task::getByDashboardIdAndStatus($id, 4);
+        $lists      = Lists::getByIdDashboard($id);
+        $tasks      = Task::getByDashboardId($id);
         return view('dashboard', [
                                             'dashboard' =>  $dashboard,
-                                            'toDo'      =>  $toDo,
-                                            'doing'     =>  $doing,
-                                            'done'      =>  $done,
-                                            'archives'  =>  $archives,
+                                            'lists'     =>  $lists,
+                                            'tasks'     =>  $tasks,
                                         ]);
+    }
+
+    public function addList(Request $verb)
+    {
+        Lists::create($verb);
+        return redirect()->route('dashboard', ['id' => $verb->input('id_dashboard')]);
     }
 
     public function addCard(Request $verb)
     {
         Task::create($verb);
-        return redirect()->route('dashboard', ['id' => $verb->input('dashboard')]);
+        return redirect()->route('dashboard', ['id' => $verb->input('id_dashboard')]);
     }
 }

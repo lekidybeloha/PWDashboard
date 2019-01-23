@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDashboardTaskTable extends Migration
+class CreateCartsChecklistTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateDashboardTaskTable extends Migration
      */
     public function up()
     {
-        Schema::create('dashboard_task', function (Blueprint $table) {
+        Schema::create('carts_checklist', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_dashboard');
-            $table->string('name');
-            $table->integer('id_cart');
+            $table->integer('id_carts');
+            $table->integer('id_user');
+            $table->text('comment');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateDashboardTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dashboard_task');
+        Schema::dropIfExists('carts_checklist');
     }
 }

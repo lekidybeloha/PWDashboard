@@ -10,9 +10,9 @@ class Task extends Model
     protected $table        = 'dashboard_task';
     protected $primaryKey   = 'id';
 
-    public static function getByDashboardIdAndStatus($id, $status)
+    public static function getByDashboardId($id)
     {
-        $res = self::where('id_dashboard', '=', $id)->where('status', '=', $status)->get();
+        $res = self::where('id_dashboard', '=', $id)->get();
 
         return $res;
     }
@@ -20,10 +20,11 @@ class Task extends Model
     public static function create($verb)
     {
         $data['name']           = $verb->input('name');
-        $data['id_dashboard']   = $verb->input('dashboard');
-        $data['status']         = $verb->input('status');
+        $data['id_dashboard']   = $verb->input('id_dashboard');
+        $data['id_cart']        = $verb->input('id_card');
         $data['created_at']     = @date('Y-m-d H:i:s');
         $data['updated_at']     = @date('Y-m-d H:i:s');
-        self::insert($data);
+        $id = self::insertGetId($data);
+        TaskDetails::create($id);
     }
 }
