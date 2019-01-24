@@ -15,9 +15,10 @@ class CreateCartsChecklistTable extends Migration
     {
         Schema::create('carts_checklist', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_carts');
+            $table->integer('id_dashboard_task');
             $table->integer('id_user');
-            $table->text('comment');
+            $table->text('name');
+            $table->integer('done');
             $table->timestamps();
         });
     }

@@ -28,5 +28,11 @@ Route::post('/add-card', 'HomeController@addCard')->name('addCard');
 /**
  * WS
  */
+// DETAILS
 Route::get('/cart-details', 'WSController@getListDetails')->name('cartDetails');
 Route::get('/save-cart-details', 'WSController@saveCartDetails')->name('saveCartDetails');
+
+//CHECKLIST
+Route::get('/save-cart-checklist', 'WSController@saveCartChecklist')->name('saveCartChecklist');
+Route::get('/get-cart-checklist', 'WSController@getCartChecklist')->name('getCartChecklist');
+Route::get('/update-checklist', 'WSController@updateChecklist')->name('updateChecklist');

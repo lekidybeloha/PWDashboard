@@ -51,6 +51,7 @@ class HomeController extends Controller
                                             'dashboard' =>  $dashboard,
                                             'lists'     =>  $lists,
                                             'tasks'     =>  $tasks,
+                                            'id_user'   =>   Auth::id()
                                         ]);
     }
 
