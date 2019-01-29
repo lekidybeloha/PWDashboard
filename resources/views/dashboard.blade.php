@@ -112,11 +112,14 @@
                                 <button class="btn btn-success" id="saveChecklist">Enregistrer</button>
                                 <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
                             </div>
-                            <!--
-                            <label>Checklist</label>
-                            <div class="progress">
-                                <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>-->
+                            <br>
+                            <div id="listComments">
+                            </div>
+                            <label>Ajouter un commentaire</label>
+                            <div id="addComments">
+                                <textarea id="comment" class="form-control"></textarea>
+                                <button class="btn btn-success" id="saveComment">Enregistrer</button>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -139,6 +142,8 @@
         var saveCartDetails     = "{{ route('saveCartDetails') }}";
         var saveCartChecklist   = "{{ route('saveCartChecklist') }}";
         var getCartChecklist    = "{{ route('getCartChecklist') }}";
-        var updateChecklist    = "{{ route('updateChecklist') }}";
+        var updateChecklist     = "{{ route('updateChecklist') }}";
+        var getComments         = "{{ route('getComments') }}";
+        var saveComments        = "{{ route('saveComments') }}";
     </script>
 @endsection

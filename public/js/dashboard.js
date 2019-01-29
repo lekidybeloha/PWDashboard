@@ -8,6 +8,7 @@ $(document).ready(function () {
                 $('#descCart').val(data.description);
                 $('#id_task').val(id_cart);
                 refreshChecklist(id_cart);
+                refreshComments(id_cart);
             });
         $('#task-title').html($(this).attr('data-name'));
 
@@ -44,6 +45,13 @@ $(document).ready(function () {
             .done(function() {
                 $('#checklistForm').fadeOut();
                 refreshChecklist($('#id_task').val());
+            });
+    });
+
+    $('#saveComment').click(function () {
+        $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
+            .done(function() {
+                refreshComments($('#id_task').val());
             });
     });
 });
@@ -89,5 +97,24 @@ function refreshChecklist(id_task){
                 $('#checkProgress').css('width', progressPercent + '%');
                 $('#listChecklist').html(html);
             }
+        });
+}
+
+function refreshComments(id_task){
+    $('#listComments').html('');
+    $.get( getComments, { id:id_task} )
+        .done(function(data) {
+            var html = '';
+            $.each(data, function (i, v) {
+                console.log($('#id_user').val());
+                console.log(v.id_user);
+                if(v.id_user !== parseInt($('#id_user').val())){
+                    html+= '<textarea class="form-control comments" data-id="' + v.id + '" data-user="' + v.id_user +'" disabled>' + v.comment + '</textarea>';
+                }else{
+                    html+= '<textarea class="form-control comments" data-id="' + v.id + '" data-user="' + v.id_user +'">' + v.comment + '</textarea>';
+                }
+
+            });
+            $('#listComments').html(html);
         });
 }

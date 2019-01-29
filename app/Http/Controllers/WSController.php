@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Checklist;
+use App\Comments;
 use App\TaskDetails;
 use Illuminate\Http\Request;
 
@@ -36,5 +37,16 @@ class WSController extends Controller
         $id_checklist = $verb->input('id');
         $value        = $verb->input('value');
         return Checklist::updateChecklist($id_checklist, $value);
+    }
+
+    public function getCartsComment(Request $verb)
+    {
+        $id_cart = $verb->input('id');
+        return Comments::getByCart($id_cart);
+    }
+
+    public function saveComments(Request $verb)
+    {
+        return Comments::create($verb);
     }
 }

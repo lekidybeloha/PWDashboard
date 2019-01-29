@@ -36,3 +36,5 @@ Route::get('/save-cart-details', 'WSController@saveCartDetails')->name('saveCart
 Route::get('/save-cart-checklist', 'WSController@saveCartChecklist')->name('saveCartChecklist');
 Route::get('/get-cart-checklist', 'WSController@getCartChecklist')->name('getCartChecklist');
 Route::get('/update-checklist', 'WSController@updateChecklist')->name('updateChecklist');
+Route::get('/get-cart-comments', 'WSController@getCartsComment')->name('getComments');
+Route::get('/save-comments', 'WSController@saveComments')->name('saveComments');
