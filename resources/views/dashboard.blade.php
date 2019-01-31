@@ -24,9 +24,9 @@
                                             //Need to be inside controllers->update necessary
                                             $countCheck     = 0;
                                             $check          = json_decode(@file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
+                                            $checkDone      = 0;
                                             if($check){
                                                 $countCheck     = count($check) ? count($check) : 0;
-                                                $checkDone      = 0;
                                                 foreach ($check as $c){
                                                     if($c['done'] > 0){
                                                         $checkDone++;
