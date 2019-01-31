@@ -24,17 +24,21 @@
                                             //Need to be inside controllers->update necessary
                                             $countCheck     = 0;
                                             $check          = json_decode(@file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
-                                            $countCheck     = count($check) ? count($check) : 0;
-                                            $checkDone      = 0;
-                                            foreach ($check as $c){
-                                                if($c['done'] > 0){
-                                                    $checkDone++;
+                                            if($check){
+                                                $countCheck     = count($check) ? count($check) : 0;
+                                                $checkDone      = 0;
+                                                foreach ($check as $c){
+                                                    if($c['done'] > 0){
+                                                        $checkDone++;
+                                                    }
                                                 }
                                             }
+
                                             $countComment   = 0;
                                             $comment        = json_decode(@file_get_contents(route('getComments', ['id'=>$t->id])), true);
-                                            $countComment   = count($comment) ? count($comment) : 0;
-
+                                            if($comment){
+                                                $countComment   = count($comment) ? count($comment) : 0;
+                                            }
                                         @endphp
                                         <button type="button" class="btn btn-light form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">
                                             {{ $t->name }}<br>
