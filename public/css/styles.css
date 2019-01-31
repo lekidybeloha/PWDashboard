@@ -1,3 +1,25 @@
+#app{
+    font-size: 13px;
+}
 .tasks{
     margin-top: 15px;
+    height: 75px!important;
+}
+.card{
+    background-color: #dfe3e6!important;
+    padding: 10px;
+}
+.navbar{
+    background-color: #dfe3e6;
+}
+.addCard{
+    margin-top: 10px;
+}
+.indice{
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+.title{
+    margin-top: 50px;
 }

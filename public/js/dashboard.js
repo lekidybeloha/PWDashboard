@@ -97,6 +97,8 @@ function refreshChecklist(id_task){
                 $('#checkProgress').attr('aria-valuemax', count);
                 $('#checkProgress').css('width', progressPercent + '%');
                 $('#listChecklist').html(html);
+                $('#countCheck').html(data.length);
+                $('#doneCheck').html(progress);
             }
         });
 }
@@ -107,15 +109,15 @@ function refreshComments(id_task){
         .done(function(data) {
             var html = '';
             $.each(data, function (i, v) {
-                console.log($('#id_user').val());
-                console.log(v.id_user);
+
                 if(v.id_user !== parseInt($('#id_user').val())){
-                    html+= '<textarea class="form-control comments" data-id="' + v.id + '" data-user="' + v.id_user +'" disabled>' + v.comment + '</textarea>';
+                    html+= '<div class="alert alert-primary comments" data-id="' + v.id + '" data-user="' + v.id_user +'" disabled>' + v.comment + '</div>';
                 }else{
-                    html+= '<textarea class="form-control comments" data-id="' + v.id + '" data-user="' + v.id_user +'">' + v.comment + '</textarea>';
+                    html+= '<div class="alert alert-primary comments" data-id="' + v.id + '" data-user="' + v.id_user +'">' + v.comment + '</div>';
                 }
 
             });
             $('#listComments').html(html);
+            $('#countCom').html(data.length);
         });
 }

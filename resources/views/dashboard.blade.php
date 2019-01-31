@@ -20,7 +20,26 @@
                             <div>
                                 @foreach($tasks as $t)
                                     @if($t->id_cart == $one->id)
-                                        <button type="button" class="btn btn-secondary form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">{{ $t->name }}</button>
+                                        @php
+                                            //Need to be inside controllers->update necessary
+                                            $check          = json_decode(file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
+                                            $countCheck     = count($check);
+                                            $checkDone      = 0;
+                                            foreach ($check as $c){
+                                                if($c['done'] > 0){
+                                                    $checkDone++;
+                                                }
+                                            }
+
+                                            $comment        = json_decode(file_get_contents(route('getComments', ['id'=>$t->id])), true);
+                                            $countComment   = count($comment);
+
+                                        @endphp
+                                        <button type="button" class="btn btn-light form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">
+                                            {{ $t->name }}<br>
+                                            <i class="fas fa-check-square"></i><span class="indice" id="doneCheck">{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span>
+                                            <i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span>
+                                        </button>
                                     @endif
                                 @endforeach
                             </div>
@@ -98,7 +117,7 @@
                             <input type="hidden" value="" id="id_task">
                             <button class="btn btn-success" id="saveDesc">Enregistrer</button>
 
-                            <label>Checklist</label>
+                            <label class="title">Checklist</label>
                             <div class="progress">
                                 <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -113,9 +132,10 @@
                                 <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
                             </div>
                             <br>
+                            <label class="title">Commentaires</label>
                             <div id="listComments">
                             </div>
-                            <label>Ajouter un commentaire</label>
+                            <label >Ajouter un commentaire</label>
                             <div id="addComments">
                                 <textarea id="comment" class="form-control"></textarea>
                                 <button class="btn btn-success" id="saveComment">Enregistrer</button>
