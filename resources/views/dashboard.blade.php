@@ -22,7 +22,7 @@
                                     @if($t->id_cart == $one->id)
                                         @php
                                             //Need to be inside controllers->update necessary
-                                            $check          = json_decode(file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
+                                            $check          = json_decode(@file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
                                             $countCheck     = count($check);
                                             $checkDone      = 0;
                                             foreach ($check as $c){
@@ -31,7 +31,7 @@
                                                 }
                                             }
 
-                                            $comment        = json_decode(file_get_contents(route('getComments', ['id'=>$t->id])), true);
+                                            $comment        = json_decode(@file_get_contents(route('getComments', ['id'=>$t->id])), true);
                                             $countComment   = count($comment);
 
                                         @endphp

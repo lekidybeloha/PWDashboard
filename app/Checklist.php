@@ -14,7 +14,10 @@ class Checklist extends Model
     public static function getByCarts($id)
     {
         $res = self::where('id_dashboard_task', '=', $id)->get();
-        return $res;
+        if(count($res)){
+            return $res;
+        }
+        return [];
     }
 
     public static function create($verb)
