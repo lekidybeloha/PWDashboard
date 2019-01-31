@@ -51,6 +51,7 @@ $(document).ready(function () {
     $('#saveComment').click(function () {
         $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
             .done(function() {
+                $('#comment').val('');
                 refreshComments($('#id_task').val());
             });
     });
