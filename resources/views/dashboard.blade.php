@@ -23,7 +23,8 @@
                                         @php
                                             //Need to be inside controllers->update necessary
                                             $countCheck     = 0;
-                                            $check          = json_decode(file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
+                                            //$check          = json_decode(file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
+                                            $check          = \App\Checklist::getByCarts($t->id);
                                             $checkDone      = 0;
                                             if($check){
                                                 $countCheck     = count($check) ? count($check) : 0;
@@ -35,7 +36,8 @@
                                             }
 
                                             $countComment   = 0;
-                                            $comment        = json_decode(file_get_contents(route('getComments', ['id'=>$t->id])), true);
+                                            //$comment        = json_decode(file_get_contents(route('getComments', ['id'=>$t->id])), true);
+                                            $comment        = \App\Comments::getByCart($t->id);
                                             if($comment){
                                                 $countComment   = count($comment) ? count($comment) : 0;
                                             }
