@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Etiquettes;
 use App\TaskDetails;
 use App\Lists;
 use App\Organisms;
@@ -47,6 +48,7 @@ class HomeController extends Controller
         $dashboard  = Dashboard::one($id);
         $lists      = Lists::getByIdDashboard($id);
         $tasks      = Task::getByDashboardId($id);
+        $etiquettes = Etiquettes::wsAllByDashboard($id);
         return view('dashboard', [
                                             'dashboard' =>  $dashboard,
                                             'lists'     =>  $lists,
