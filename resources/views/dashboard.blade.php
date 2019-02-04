@@ -23,7 +23,6 @@
                                         @php
                                             //Need to be inside controllers->update necessary
                                             $countCheck     = 0;
-                                            //$check          = json_decode(file_get_contents(route('getCartChecklist', ['id'=>$t->id])), true);
                                             $check          = \App\Checklist::getByCarts($t->id);
                                             $checkDone      = 0;
                                             if($check){
@@ -36,7 +35,6 @@
                                             }
 
                                             $countComment   = 0;
-                                            //$comment        = json_decode(file_get_contents(route('getComments', ['id'=>$t->id])), true);
                                             $comment        = \App\Comments::getByCart($t->id);
                                             if($comment){
                                                 $countComment   = count($comment) ? count($comment) : 0;
@@ -118,35 +116,47 @@
                         <div class="modal-header">
                             <h4 class="modal-title" id="task-title"></h4>
                         </div>
-                        <div class="modal-body">
-                            <label>Description</label>
-                            <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
-                            <input type="hidden" value="" id="id_task">
-                            <button class="btn btn-success" id="saveDesc">Enregistrer</button>
+                        <div class="modal-body" style="display: inline-flex;">
+                            <div style="width: 80%">
+                                <label>Description</label>
+                                <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
+                                <input type="hidden" value="" id="id_task">
+                                <button class="btn btn-success" id="saveDesc">Enregistrer</button>
 
-                            <label class="title">Checklist</label>
-                            <div class="progress">
-                                <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                <label class="title">Checklist</label>
+                                <div class="progress">
+                                    <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div id="listChecklist">
+                                </div>
+
+                                <button class="btn btn-info" id="addChecklist">Ajout checklist</button>
+                                <div id="checklistForm" style="display: none;">
+                                    <input type="text" value="" id="checklistText" name="name" class="form-control">
+                                    <input type="hidden" value="{{ $id_user }}" name="id_user" id="id_user">
+                                    <button class="btn btn-success" id="saveChecklist">Enregistrer</button>
+                                    <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
+                                </div>
+                                <br>
+                                <label class="title">Commentaires</label>
+                                <div id="listComments">
+                                </div>
+                                <label >Ajouter un commentaire</label>
+                                <div id="addComments">
+                                    <textarea id="comment" class="form-control"></textarea>
+                                    <button class="btn btn-success" id="saveComment">Enregistrer</button>
+                                </div>
                             </div>
-                            <div id="listChecklist">
+                            <div style="width: 20%; text-align: center">
+                                <label>AJOUTER A LA CARTE</label>
+                                <button type="button" class="btn btn-secondary">Etiquettes</button>
+                                <div id="etiqList" style="display: none;">
+                                    @foreach($etiquettes as $etiq)
+                                        <label>{{ $etiq->name }}</label>
+                                    @endforeach
+                                </div>
                             </div>
 
-                            <button class="btn btn-info" id="addChecklist">Ajout checklist</button>
-                            <div id="checklistForm" style="display: none;">
-                                <input type="text" value="" id="checklistText" name="name" class="form-control">
-                                <input type="hidden" value="{{ $id_user }}" name="id_user" id="id_user">
-                                <button class="btn btn-success" id="saveChecklist">Enregistrer</button>
-                                <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
-                            </div>
-                            <br>
-                            <label class="title">Commentaires</label>
-                            <div id="listComments">
-                            </div>
-                            <label >Ajouter un commentaire</label>
-                            <div id="addComments">
-                                <textarea id="comment" class="form-control"></textarea>
-                                <button class="btn btn-success" id="saveComment">Enregistrer</button>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
