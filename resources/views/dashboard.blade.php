@@ -40,11 +40,14 @@
                                                 $countComment   = count($comment) ? count($comment) : 0;
                                             }
                                         @endphp
-                                        <button type="button" class="btn btn-light form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">
-                                            {{ $t->name }}<br>
-                                            <i class="fas fa-check-square"></i><span class="indice" id="doneCheck">{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span>
-                                            <i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span>
-                                        </button>
+                                        <div class="tasking">
+                                            <button type="button" class="btn btn-light form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">
+                                                {{ $t->name }}<br>
+                                                <i class="fas fa-check-square"></i><span class="indice" id="doneCheck">{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span>
+                                                <i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span>
+                                            </button>
+                                        </div>
+
                                     @endif
                                 @endforeach
                             </div>
@@ -149,11 +152,16 @@
                             </div>
                             <div style="width: 20%; text-align: center">
                                 <label>AJOUTER A LA CARTE</label>
-                                <button type="button" class="btn btn-secondary">Etiquettes</button>
-                                <div id="etiqList" style="display: none;">
-                                    @foreach($etiquettes as $etiq)
-                                        <label>{{ $etiq->name }}</label>
-                                    @endforeach
+                                <button type="button" class="btn btn-secondary" id="etiqButton">Etiquettes</button>
+                                <div id="etiqList">
+
+                                </div>
+                                <a href="#" id="etiqForm">Créer une étiquette</a>
+                                <div id="etiqCreate" style="display: none;">
+                                    <input type="text" id="etiqName" class="form-control" placeholder="nom de l'etiquette">
+                                    <input type="text" id="etiqColor" class="form-control" placeholder="code couleur">
+                                    <button type="button" class="btn btn-success" id="createEtiquette">Valider</button>
+                                    <button type="button" class="btn btn-danger" id="annulateEtiquette">Annuler</button>
                                 </div>
                             </div>
 
@@ -169,12 +177,16 @@
 @endsection
 
 @section('footer')
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="{{ asset('public/js/dashboard.js') }}" ></script>
     <script>
+
         var cartDetails         = "{{ route('cartDetails') }}";
         var saveCartDetails     = "{{ route('saveCartDetails') }}";
         var saveCartChecklist   = "{{ route('saveCartChecklist') }}";
@@ -182,5 +194,10 @@
         var updateChecklist     = "{{ route('updateChecklist') }}";
         var getComments         = "{{ route('getComments') }}";
         var saveComments        = "{{ route('saveComments') }}";
+
+        $('.tasking').draggable({helper: "clone",
+            cursor: "move",
+            revert: true});
+        //$('.tasks').droppable();
     </script>
 @endsection

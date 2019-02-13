@@ -55,6 +55,22 @@ $(document).ready(function () {
                 refreshComments($('#id_task').val());
             });
     });
+
+
+    /*
+    Etiquettes section
+     */
+    $('#etiqButton').click(function () {
+        $('#etiqList').show();
+    });
+
+    $('#etiqForm').click(function () {
+        $('#etiqCreate').show();
+    });
+
+    $('#annulateEtiquette').click(function () {
+        $('#etiqCreate').hide();
+    });
 });
 
 $(document).on('change', '.doneCheck', function () {
@@ -73,7 +89,6 @@ $(document).on('change', '.doneCheck', function () {
             });
     }
 });
-
 
 function refreshChecklist(id_task){
     $('#listChecklist').html('');
