@@ -2,21 +2,21 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <h1>{{ $dashboard->name }}</h1>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#createList">Créer une liste</button>
+        <div class="row">
+            <div class="col-md-12 main-dashboard">
+                <h2>{{ $dashboard->name }}</h2>
+                <div>
+                    <a href="#">Afficher le menu</a>
+                </div>
             </div>
-
+            <div class="main-row">
             @if(count($lists))
                 @foreach($lists as $one)
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $one->title }}</h5>
-
                             </div>
-
                             <div>
                                 @foreach($tasks as $t)
                                     @if($t->id_cart == $one->id)
@@ -40,11 +40,12 @@
                                                 $countComment   = count($comment) ? count($comment) : 0;
                                             }
                                         @endphp
+
                                         <div class="tasking">
                                             <button type="button" class="btn btn-light form-control tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}">
                                                 {{ $t->name }}<br>
-                                                <i class="fas fa-check-square"></i><span class="indice" id="doneCheck">{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span>
-                                                <i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span>
+                                                <span style="@if($countCheck == 0) display: none; @endif @if($countCheck == $checkDone) background-color:#61bd4f; @endif" ><i class="fas fa-check-square"></i><span class="indice" id="doneCheck" >{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span></span>
+                                                <span @if($countComment == 0) style="display: none;" @endif><i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span></span>
                                             </button>
                                         </div>
 
@@ -56,6 +57,8 @@
                     </div>
                 @endforeach
             @endif
+                <button class="btn btn-primary createListBtn" data-toggle="modal" data-target="#createList">Ajouter une liste</button>
+            </div>
 
             <!--MODAL SECTION : CREATE LIST-->
             <div id="createList" class="modal fade" role="dialog">
@@ -174,6 +177,7 @@
                 </div>
             </div>
     </div>
+
 @endsection
 
 @section('footer')
@@ -184,7 +188,7 @@
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="{{ asset('public/js/dashboard.js') }}" ></script>
+    <script src="{{ asset('js/dashboard.js') }}" ></script>
     <script>
 
         var cartDetails         = "{{ route('cartDetails') }}";

@@ -7,7 +7,7 @@
             @if(count($dashboard))
                 @foreach($dashboard as $one)
                     <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card col-md-3" style="width: 18rem;">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $one->name }}</h5>
                             </div>

@@ -4,13 +4,13 @@
 .tasks{
     margin-top: 15px;
     height: 75px!important;
+    box-shadow: 0 1px 0 rgba(9,45,66,.25);
+    text-align: left;
 }
 .card{
     background-color: #dfe3e6!important;
     padding: 10px;
-}
-.navbar{
-    background-color: #dfe3e6;
+    border: none !important;
 }
 .addCard{
     margin-top: 10px;
@@ -32,4 +32,38 @@
     height: 20px;
     color: white;
     border-radius: 5px
+}
+/*Navbar
+
+ */
+.navbar-laravel{
+    background-color: #026aa7;
+    color: #fff;
+}
+
+.navbar-brand{
+    color: #fff!important;
+}
+
+.main-row{
+    width: 100%;
+    overflow-x: auto;
+    display: inline-flex;
+}
+
+.main-dashboard{
+    display: inline-flex;
+}
+
+.fas{
+    color: #798d99;
+}
+
+.createListBtn{
+    height: 40px;
+
+}
+
+.display-dashboard{
+    display: inline-flex;
 }
