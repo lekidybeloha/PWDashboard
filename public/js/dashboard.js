@@ -56,6 +56,31 @@ $(document).ready(function () {
             });
     });
 
+    /*
+    Dashboard favorites
+     */
+    $('#updateFavorite').click(function () {
+        var id_dashboard    = $('#iconFavorites').attr('data-id');
+        var favorite        = $('#iconFavorites').attr('data-fav');
+
+
+        $.get( updateFavorites, { id_dashboard: id_dashboard, fav : favorite} )
+            .done(function(data) {
+                console.log(data);
+                console.log(favorite);
+                if(data.success == true){
+                    if(favorite == 1){
+                        $('#iconFavorites').removeClass('far fa-star');
+                        $('#iconFavorites').addClass('fas fa-star');
+                        $('#iconFavorites').attr('data-fav', 0);
+                    }else{
+                        $('#iconFavorites').removeClass('fas fa-star');
+                        $('#iconFavorites').addClass('far fa-star');
+                        $('#iconFavorites').attr('data-fav', 1);
+                    }
+                }
+            });
+    });
 
     /*
     Etiquettes section
@@ -70,6 +95,26 @@ $(document).ready(function () {
 
     $('#annulateEtiquette').click(function () {
         $('#etiqCreate').hide();
+    });
+
+    $('#createEtiquette').click(function () {
+       var etiquetteName    = $('#etiqName').val();
+       var color            = $('#etiqColor').val();
+       if(etiquetteName == ''){
+           alert('Veuillez choisir un nom d\'etiquette');
+           return
+       }
+        $.get( addEtiquettes, { id_dashboard: $('#id_dash').val(), name : etiquetteName, color: color} )
+            .done(function(data) {
+                if(data.success == true){
+                    $('#etiqCreate').hide();
+                }
+            });
+    });
+
+    $('.etiqDiv').click(function () {
+       var id_etiquette = $(this).attr('data-id');
+       var task         = $('#id_task').val();
     });
 });
 
@@ -135,4 +180,8 @@ function refreshComments(id_task){
             $('#listComments').html(html);
             $('#countCom').html(data.length);
         });
+}
+
+function refreshEtiquettes(id_dashboard){
+
 }

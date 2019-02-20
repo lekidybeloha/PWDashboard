@@ -18,6 +18,8 @@ class CreateDashboardTable extends Migration
             $table->string('name');
             $table->integer('id_user');
             $table->boolean('privacy');
+            $table->string('color', '255', null);
+            $table->boolean('favoris', '', false);
             $table->timestamps();
         });
     }

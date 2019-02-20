@@ -3,11 +3,24 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10 dashboard-list">
+            @if(!empty($favorites))
+                <h2>Tableaux favoris</h2>
+                @foreach($favorites as $one)
+                    <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
+                        <div class="card" style="width: 18rem; @if($one->color != '') background-color: {{ $one->color }}!important; @endif">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $one->name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            @endif
+            <h2>Tableaux personnels</h2>
             @if(count($dashboard))
                 @foreach($dashboard as $one)
                     <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
-                        <div class="card col-md-3" style="width: 18rem;">
+                        <div class="card" style="width: 18rem; @if($one->color != '') background-color: {{ $one->color }}!important; @endif">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $one->name }}</h5>
                             </div>
@@ -42,6 +55,9 @@
                             <option value="0">Public</option>
                             <option value="1">Privée</option>
                         </select>
+                        <label>Choisir une couleur</label>
+                        <input type="color" name="color" value="#00aecc">
+                        <span></span>
                         <input type="hidden" name="user" value="{{ $id_user }}">
                         <input type="submit" class="btn btn-primary form-control create-tab" value="Créer le tableau">
                         @csrf

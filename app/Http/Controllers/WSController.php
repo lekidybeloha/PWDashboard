@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Checklist;
 use App\Comments;
+use App\Dashboard;
+use App\Etiquettes;
 use App\TaskDetails;
 use Illuminate\Http\Request;
 
@@ -48,5 +50,22 @@ class WSController extends Controller
     public function saveComments(Request $verb)
     {
         return Comments::create($verb);
+    }
+
+    public function updateFavorite(Request $verb)
+    {
+        return Dashboard::updateFavoris($verb);
+    }
+
+    public function addEtiquette(Request $verb)
+    {
+        return Etiquettes::create($verb);
+    }
+
+    public function etiquettesList(Request $verb)
+    {
+        $id_dashboard   = $verb->input('id_dashboard');
+        $id_task        = $verb->input('id_task');
+        return Etiquettes::findEtiquetteInTask($id_dashboard, $id_task);
     }
 }

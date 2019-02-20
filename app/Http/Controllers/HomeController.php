@@ -31,8 +31,19 @@ class HomeController extends Controller
     public function index()
     {
         $dashboard = Dashboard::getAllByUser(Auth::id());
+        $favorites = [];
+
+        foreach($dashboard as $one)
+        {
+            if($one->favoris == 1)
+            {
+                $favorites[] = $one;
+            }
+        }
+
         return view('home', [
                                     'dashboard'    =>   $dashboard,
+                                    'favorites'    =>   $favorites,
                                     'id_user'      =>   Auth::id()
                                 ]);
     }

@@ -38,3 +38,10 @@ Route::get('/get-cart-checklist', 'WSController@getCartChecklist')->name('getCar
 Route::get('/update-checklist', 'WSController@updateChecklist')->name('updateChecklist');
 Route::get('/get-cart-comments', 'WSController@getCartsComment')->name('getComments');
 Route::get('/save-comments', 'WSController@saveComments')->name('saveComments');
+
+//DASHBOARD
+Route::get('/update-dashboard-favorite', 'WSController@updateFavorite')->name('updateDashboardFavorite');
+
+//ETIQUETTES
+Route::get('/add-etiquette', 'WSController@addEtiquette')->name('addEtiquette');
+Route::get('/etiquette-list', 'WSController@etiquettesList')->name('etiquettesList');

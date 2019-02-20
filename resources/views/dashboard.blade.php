@@ -5,8 +5,15 @@
         <div class="row">
             <div class="col-md-12 main-dashboard">
                 <h2>{{ $dashboard->name }}</h2>
-                <div>
-                    <a href="#">Afficher le menu</a>
+                <div class="dashboard-header">
+                    <a href="#" class="dashboard-param" id="updateFavorite">
+                        @if($dashboard->favoris == 0)
+                            <i class="far fa-star" id="iconFavorites" data-id="{{ $dashboard->id }}" data-fav="1"></i>
+                        @else
+                            <i class="fas fa-star" id="iconFavorites" data-id="{{ $dashboard->id }}" data-fav="0"></i>
+                        @endif
+                    </a> | <a href="#" class="dashboard-param">@if($dashboard->privacy == 0) Public @else Personnel @endif </a>
+                    | <a href="#" class="dashboard-param">Afficher le menu</a>
                 </div>
             </div>
             <div class="main-row">
@@ -157,12 +164,25 @@
                                 <label>AJOUTER A LA CARTE</label>
                                 <button type="button" class="btn btn-secondary" id="etiqButton">Etiquettes</button>
                                 <div id="etiqList">
-
+                                    @if(!empty($etiquettes))
+                                        @foreach($etiquettes as $one)
+                                            @php
+                                                $true = \App\Etiquettes::findEtiquetteInTask($one->id, $dashboard->id);
+                                            @endphp
+                                            <div style="background-color: {{ $one->color }}; color: white" class="etiqDiv" data-id="{{ $one->id }}">{{ $one->name }}
+                                                @if(!empty($true))
+                                                    <i class="fas fa-check"></i>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <a href="#" id="etiqForm">Créer une étiquette</a>
                                 <div id="etiqCreate" style="display: none;">
                                     <input type="text" id="etiqName" class="form-control" placeholder="nom de l'etiquette">
-                                    <input type="text" id="etiqColor" class="form-control" placeholder="code couleur">
+                                    <label>Couleur</label>
+                                    <input type="color" id="etiqColor" class="form-control" placeholder="code couleur">
+                                    <input type="hidden" id="id_dash" class="form-control" placeholder="code couleur" value="{{ $dashboard->id }}">
                                     <button type="button" class="btn btn-success" id="createEtiquette">Valider</button>
                                     <button type="button" class="btn btn-danger" id="annulateEtiquette">Annuler</button>
                                 </div>
@@ -198,6 +218,8 @@
         var updateChecklist     = "{{ route('updateChecklist') }}";
         var getComments         = "{{ route('getComments') }}";
         var saveComments        = "{{ route('saveComments') }}";
+        var updateFavorites     = "{{ route('updateDashboardFavorite') }}";
+        var addEtiquettes       = "{{ route('addEtiquette') }}";
 
         $('.tasking').draggable({helper: "clone",
             cursor: "move",

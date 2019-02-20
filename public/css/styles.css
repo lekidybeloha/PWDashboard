@@ -37,7 +37,7 @@
 
  */
 .navbar-laravel{
-    background-color: #026aa7;
+    background: rgba(0,0,0,.15);
     color: #fff;
 }
 
@@ -53,10 +53,13 @@
 
 .main-dashboard{
     display: inline-flex;
+    background: rgba(0,0,0,.15);
+    color: white;
+    margin-bottom: 15px;
 }
 
 .fas{
-    color: #798d99;
+    color: white;
 }
 
 .createListBtn{
@@ -66,4 +69,32 @@
 
 .display-dashboard{
     display: inline-flex;
+}
+
+.dashboard-list a{
+    display: inline-flex;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+.dashboard-header{
+    padding-top: 10px;
+}
+
+.dashboard-param{
+    margin-right: 25px;
+    margin-left: 25px;
+    color: #fff;
+}
+
+.etiqDiv{
+    height: 30px;
+    border-radius: 5px;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

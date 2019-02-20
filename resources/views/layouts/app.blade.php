@@ -25,7 +25,7 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
-<body>
+<body @if(isset($dashboard) && isset($dashboard->color) && $dashboard->color != '') style="background-color: {{ $dashboard->color }};" @endif >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
