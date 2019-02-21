@@ -58,7 +58,7 @@
     margin-bottom: 15px;
 }
 
-.fas{
+.fa-star{
     color: white;
 }
 
@@ -97,4 +97,13 @@
     padding-top: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.div-list-etiq{
+    display: inline-flex;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #fff;
 }

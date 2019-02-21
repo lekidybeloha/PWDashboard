@@ -41,7 +41,11 @@ Route::get('/save-comments', 'WSController@saveComments')->name('saveComments');
 
 //DASHBOARD
 Route::get('/update-dashboard-favorite', 'WSController@updateFavorite')->name('updateDashboardFavorite');
+Route::get('/update-dashboard-main/{id}', 'WSController@updateMainDashboard')->name('updateMainDashboard');
 
 //ETIQUETTES
 Route::get('/add-etiquette', 'WSController@addEtiquette')->name('addEtiquette');
 Route::get('/etiquette-list', 'WSController@etiquettesList')->name('etiquettesList');
+Route::get('/insert-delete-etiquette', 'WSController@insertOrDeleteEtiquette')->name('insertOrDeleteEtiquette');
+Route::get('/check-etiquette-task', 'WSController@checkEtiquette')->name('checkEtiquette');
+Route::get('/update-etiquette-list/{id}', 'WSController@updateEtiquetteList')->name('updateEtiquetteList');

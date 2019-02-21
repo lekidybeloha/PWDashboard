@@ -7,6 +7,8 @@ use App\Comments;
 use App\Dashboard;
 use App\Etiquettes;
 use App\TaskDetails;
+use App\Lists;
+use App\Task;
 use Illuminate\Http\Request;
 
 class WSController extends Controller
@@ -67,5 +69,37 @@ class WSController extends Controller
         $id_dashboard   = $verb->input('id_dashboard');
         $id_task        = $verb->input('id_task');
         return Etiquettes::findEtiquetteInTask($id_dashboard, $id_task);
+    }
+
+    public function insertOrDeleteEtiquette(Request $verb)
+    {
+        $id     = $verb->input('id_etiquette');
+        $task   = $verb->input('id_task');
+        return Etiquettes::insertOrRemoveEtiquetteFromTask($id, $task);
+    }
+
+    public function updateMainDashboard($id)
+    {
+        $lists      = Lists::getByIdDashboard($id);
+        $tasks      = Task::getByDashboardId($id);
+        return view('components.lists', [
+                                                'lists'     =>  $lists,
+                                                'tasks'     =>  $tasks,
+                                            ]);
+    }
+
+    public function checkEtiquette(Request $verb)
+    {
+        $id_etiquette = $verb->input('id_etiquette');
+        $id_dashboard_task = $verb->input('id_dashboard_task');
+        return Etiquettes::findEtiquetteInTask($id_etiquette, $id_dashboard_task);
+    }
+
+    public function updateEtiquetteList($id)
+    {
+        $etiquettes = Etiquettes::wsAllByDashboard($id);
+        return view('components.etiquettes', [
+                                            'etiquettes'=>  $etiquettes
+                                        ]);
     }
 }

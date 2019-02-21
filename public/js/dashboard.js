@@ -1,19 +1,5 @@
 $(document).ready(function () {
     $('#saveDesc').css('display', 'none');
-    $('.tasks').click(function () {
-        $('#listChecklist').html('');
-        var id_cart = $(this).attr('data-id');
-        $.get( cartDetails, { id: id_cart} )
-            .done(function( data ) {
-                $('#descCart').val(data.description);
-                $('#id_task').val(id_cart);
-                refreshChecklist(id_cart);
-                refreshComments(id_cart);
-            });
-        $('#task-title').html($(this).attr('data-name'));
-
-        $('#cartDetails').modal();
-    });
 
     $('#descCart').bind('input propertychange', function () {
         $('#saveDesc').css('display', 'block');
@@ -38,22 +24,6 @@ $(document).ready(function () {
 
     $('#cancelChecklist').click(function () {
         $('#checklistForm').fadeOut();
-    });
-
-    $('#saveChecklist').click(function () {
-        $.get( saveCartChecklist, { id_card: $('#id_task').val(), name : $('#checklistText').val(), id_user: $('#id_user').val()} )
-            .done(function() {
-                $('#checklistForm').fadeOut();
-                refreshChecklist($('#id_task').val());
-            });
-    });
-
-    $('#saveComment').click(function () {
-        $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
-            .done(function() {
-                $('#comment').val('');
-                refreshComments($('#id_task').val());
-            });
     });
 
     /*
@@ -108,14 +78,60 @@ $(document).ready(function () {
             .done(function(data) {
                 if(data.success == true){
                     $('#etiqCreate').hide();
+                    $( "#etiqList" ).load( updateEtiquetteList);
                 }
             });
     });
 
-    $('.etiqDiv').click(function () {
-       var id_etiquette = $(this).attr('data-id');
-       var task         = $('#id_task').val();
+});
+
+$(document).on('click', '.tasks', function () {
+    $('#listChecklist').html('');
+    $('#etiqCreate').hide();
+    var id_cart = $(this).attr('data-id');
+    $.get( cartDetails, { id: id_cart} )
+        .done(function( data ) {
+            $('#descCart').val(data.description);
+            $('#id_task').val(id_cart);
+            refreshChecklist(id_cart);
+            refreshComments(id_cart);
+        });
+    $('#task-title').html($(this).attr('data-name'));
+
+    $('.etiqDiv').each(function () {
+        $(this).find('i').remove();
     });
+
+    $('.etiqDiv').each(function () {
+        var div = $(this);
+        $.get( checkEtiquettes, { id_etiquette: $(this).attr('data-id'), id_dashboard_task : id_cart} )
+            .done(function( data ) {
+                console.log(data);
+                if(data.success == true){
+                    div.append('<i class="fas fa-check"></i>');
+                }
+            });
+    });
+
+    $('#cartDetails').modal();
+});
+
+$(document).on('click', '#saveChecklist', function () {
+    $.get( saveCartChecklist, { id_card: $('#id_task').val(), name : $('#checklistText').val(), id_user: $('#id_user').val()} )
+        .done(function() {
+            $('#checklistForm').fadeOut();
+            refreshChecklist($('#id_task').val());
+            $( "#dashboard-principal" ).load( updateMainDashboard);
+        });
+});
+
+$(document).on('click', '#saveComment', function () {
+    $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
+        .done(function() {
+            $('#comment').val('');
+            refreshComments($('#id_task').val());
+            $( "#dashboard-principal" ).load( updateMainDashboard);
+        });
 });
 
 $(document).on('change', '.doneCheck', function () {
@@ -125,14 +141,33 @@ $(document).on('change', '.doneCheck', function () {
             .done(function() {
                 $('#checklistForm').fadeOut();
                 refreshChecklist(checkbox.attr('data-cart'));
+                $( "#dashboard-principal" ).load( updateMainDashboard);
             });
     }else{
         $.get(  updateChecklist, { id: checkbox.val(), value : 0} )
             .done(function() {
                 $('#checklistForm').fadeOut();
                 refreshChecklist(checkbox.attr('data-cart'));
+                $( "#dashboard-principal" ).load( updateMainDashboard);
             });
     }
+});
+
+$(document).on('click', '.etiqDiv', function () {
+    var id_etiquette = $(this).attr('data-id');
+    var task         = $('#id_task').val();
+    var element      = $(this);
+    $('#dashboard-principal').html('');
+    $.get( insertOrDeleteEtiquette, { id_etiquette: id_etiquette, id_task : task} )
+        .done(function(data) {
+            $( "#dashboard-principal" ).load( updateMainDashboard, function() {
+                if(data.erase == true){
+                    element.find('i').remove();
+                }else{
+                    element.append('<i class="fas fa-check"></i>');
+                }
+            });
+        });
 });
 
 function refreshChecklist(id_task){

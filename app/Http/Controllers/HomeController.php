@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Etiquettes;
-use App\TaskDetails;
 use App\Lists;
 use App\Organisms;
 use App\Task;

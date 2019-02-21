@@ -53,12 +53,51 @@ class Etiquettes extends Model
     public static function findEtiquetteInTask($id, $id_task)
     {
         $res = DB::table(self::$table_child)->where('id_etiquette', '=', $id)->where('id_dashboard_task', '=', $id_task)->first();
-        return $res;
+        if($res)
+        {
+            return ['success' => TRUE];
+        }
+        else
+        {
+            return ['success' => FALSE];
+        }
     }
 
-    public static function removeEtiquetteFromTask($id, $id_task)
+    public static function insertOrRemoveEtiquetteFromTask($id, $id_task)
     {
-        $res = DB::table(self::$table_child)->where('id_etiquette', '=', $id)->where('id_dashboard_task', '=', $id_task)->delete();
-        return $res;
+        $res = DB::table(self::$table_child)->where('id_etiquette', '=', $id)->where('id_dashboard_task', '=', $id_task)->first();
+
+        if($res)
+        {
+            DB::table(self::$table_child)->where('id_etiquette', '=', $id)->where('id_dashboard_task', '=', $id_task)->delete();
+            return[
+                'success'   =>  TRUE,
+                'erase'     => TRUE
+            ];
+        }
+        else
+        {
+            $data['id_etiquette']       = $id;
+            $data['id_dashboard_task']  = $id_task;
+            DB::table(self::$table_child)->insert($data);
+            return[
+                    'success'   =>  TRUE,
+                    'erase'     => FALSE
+                ];
+        }
+    }
+
+    public static function getEtiquettesByCarts($id)
+    {
+        $data   = [];
+        $res    = DB::table(self::$table_child)->where('id_dashboard_task', '=', $id)->get();
+        if(count($res))
+        {
+            foreach($res as $one)
+            {
+                $data[] = self::find($one->id_etiquette);
+            }
+        }
+        return $data;
     }
 }
