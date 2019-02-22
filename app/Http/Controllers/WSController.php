@@ -6,6 +6,7 @@ use App\Checklist;
 use App\Comments;
 use App\Dashboard;
 use App\Etiquettes;
+use App\Invitations;
 use App\TaskDetails;
 use App\Lists;
 use App\Task;
@@ -102,4 +103,10 @@ class WSController extends Controller
                                             'etiquettes'=>  $etiquettes
                                         ]);
     }
+
+    public function sendInvitation(Request $verb)
+    {
+        return Invitations::sendInvitation($verb);
+    }
+
 }

@@ -6,14 +6,22 @@
             <div class="col-md-12 main-dashboard">
                 <h2>{{ $dashboard->name }}</h2>
                 <div class="dashboard-header">
-                    <a href="#" class="dashboard-param" id="updateFavorite">
+                    <a href="#" class="dashboard-param" id="updateFavorite" onclick="dashboard.updateFavoris()">
                         @if($dashboard->favoris == 0)
                             <i class="far fa-star" id="iconFavorites" data-id="{{ $dashboard->id }}" data-fav="1"></i>
                         @else
                             <i class="fas fa-star" id="iconFavorites" data-id="{{ $dashboard->id }}" data-fav="0"></i>
                         @endif
                     </a> | <a href="#" class="dashboard-param">@if($dashboard->privacy == 0) Public @else Personnel @endif </a>
-                    | <a href="#" class="dashboard-param">Afficher le menu</a>
+                    |
+                    <div class="rounded-circle coop">{{ $username[0] }}</div>
+                    @if(!empty($coop))
+                        @foreach($coop as $one)
+                            <div class="rounded-circle coop">{{ $one->name[0] }}</div>
+                        @endforeach
+                    @endif
+                    <div class="rounded-circle coop" onclick="dashboard.addCoop()"><i class="fas fa-user-plus"></i></div>
+                    |<a href="#" class="dashboard-param">Afficher le menu</a>
                 </div>
             </div>
             <div class="main-row" id="dashboard-principal">
@@ -87,7 +95,7 @@
                                 <label>Description</label>
                                 <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
                                 <input type="hidden" value="" id="id_task">
-                                <button class="btn btn-success" id="saveDesc">Enregistrer</button>
+                                <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
 
                                 <label class="title">Checklist</label>
                                 <div class="progress">
@@ -100,7 +108,7 @@
                                 <div id="checklistForm" style="display: none;">
                                     <input type="text" value="" id="checklistText" name="name" class="form-control">
                                     <input type="hidden" value="{{ $id_user }}" name="id_user" id="id_user">
-                                    <button class="btn btn-success" id="saveChecklist">Enregistrer</button>
+                                    <button class="btn btn-success" id="saveChecklist" onclick="dashboard.saveChecklist()">Enregistrer</button>
                                     <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
                                 </div>
                                 <br>
@@ -110,7 +118,7 @@
                                 <label >Ajouter un commentaire</label>
                                 <div id="addComments">
                                     <textarea id="comment" class="form-control"></textarea>
-                                    <button class="btn btn-success" id="saveComment">Enregistrer</button>
+                                    <button class="btn btn-success" id="saveComment" onclick="dashboard.saveComment()">Enregistrer</button>
                                 </div>
                             </div>
                             <div style="width: 20%; text-align: center">
@@ -125,11 +133,39 @@
                                     <label>Couleur</label>
                                     <input type="color" id="etiqColor" class="form-control" placeholder="code couleur">
                                     <input type="hidden" id="id_dash" class="form-control" placeholder="code couleur" value="{{ $dashboard->id }}">
-                                    <button type="button" class="btn btn-success" id="createEtiquette">Valider</button>
+                                    <button type="button" class="btn btn-success" id="createEtiquette" onclick="dashboard.createEtiquette()">Valider</button>
                                     <button type="button" class="btn btn-danger" id="annulateEtiquette">Annuler</button>
                                 </div>
                             </div>
 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--MODAL SECTION : CREATE INVITATION-->
+            <div id="addCoop" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Envoyer une invitation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('sendInvitation') }}" id="sendInvitation">
+                                <label>Adresse email</label>
+                                <input type="email" name="email" class="form-control" required>
+                                <label>Message</label>
+                                <input type="text" name="text" class="form-control" value="Je travaille sur ce projet dans PWDashboard et je voulais le partager avec vous.">
+                                <input type="hidden" name="id_dashboard" value="{{ $dashboard->id }}">
+                                <input type="submit" class="btn btn-primary form-control" value="Envoyer une invitation">
+                                @csrf
+                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -166,10 +202,5 @@
         var updateMainDashboard     = "{{ route('updateMainDashboard', ['id' => $dashboard->id]) }}";
         var checkEtiquettes         = "{{ route('checkEtiquette') }}";
         var updateEtiquetteList     = "{{ route('updateEtiquetteList', ['id' => $dashboard->id]) }}";
-
-        $('.tasking').draggable({helper: "clone",
-            cursor: "move",
-            revert: true});
-        //$('.tasks').droppable();
     </script>
 @endsection

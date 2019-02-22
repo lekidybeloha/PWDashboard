@@ -1,94 +1,9 @@
-$(document).ready(function () {
-    $('#saveDesc').css('display', 'none');
+let dashboard = {};
 
-    $('#descCart').bind('input propertychange', function () {
-        $('#saveDesc').css('display', 'block');
-    });
-
-    $('.addCard').click(function () {
-       $('#id_card').val($(this).attr('data-card'));
-        $('#createCard').modal();
-    });
-
-    $('#saveDesc').click(function () {
-        $.get( saveCartDetails, { id: $('#id_task').val(), description : $('#descCart').val()} )
-            .done(function() {
-                $('#saveDesc').css('display', 'none');
-                $('#cartDetails').modal('hide');
-            });
-    });
-
-    $('#addChecklist').click(function () {
-       $('#checklistForm').fadeIn();
-    });
-
-    $('#cancelChecklist').click(function () {
-        $('#checklistForm').fadeOut();
-    });
-
-    /*
-    Dashboard favorites
-     */
-    $('#updateFavorite').click(function () {
-        var id_dashboard    = $('#iconFavorites').attr('data-id');
-        var favorite        = $('#iconFavorites').attr('data-fav');
-
-
-        $.get( updateFavorites, { id_dashboard: id_dashboard, fav : favorite} )
-            .done(function(data) {
-                console.log(data);
-                console.log(favorite);
-                if(data.success == true){
-                    if(favorite == 1){
-                        $('#iconFavorites').removeClass('far fa-star');
-                        $('#iconFavorites').addClass('fas fa-star');
-                        $('#iconFavorites').attr('data-fav', 0);
-                    }else{
-                        $('#iconFavorites').removeClass('fas fa-star');
-                        $('#iconFavorites').addClass('far fa-star');
-                        $('#iconFavorites').attr('data-fav', 1);
-                    }
-                }
-            });
-    });
-
-    /*
-    Etiquettes section
-     */
-    $('#etiqButton').click(function () {
-        $('#etiqList').show();
-    });
-
-    $('#etiqForm').click(function () {
-        $('#etiqCreate').show();
-    });
-
-    $('#annulateEtiquette').click(function () {
-        $('#etiqCreate').hide();
-    });
-
-    $('#createEtiquette').click(function () {
-       var etiquetteName    = $('#etiqName').val();
-       var color            = $('#etiqColor').val();
-       if(etiquetteName == ''){
-           alert('Veuillez choisir un nom d\'etiquette');
-           return
-       }
-        $.get( addEtiquettes, { id_dashboard: $('#id_dash').val(), name : etiquetteName, color: color} )
-            .done(function(data) {
-                if(data.success == true){
-                    $('#etiqCreate').hide();
-                    $( "#etiqList" ).load( updateEtiquetteList);
-                }
-            });
-    });
-
-});
-
-$(document).on('click', '.tasks', function () {
+dashboard.openTask = function (el) {
     $('#listChecklist').html('');
     $('#etiqCreate').hide();
-    var id_cart = $(this).attr('data-id');
+    var id_cart = el.attr('data-id');
     $.get( cartDetails, { id: id_cart} )
         .done(function( data ) {
             $('#descCart').val(data.description);
@@ -96,7 +11,7 @@ $(document).on('click', '.tasks', function () {
             refreshChecklist(id_cart);
             refreshComments(id_cart);
         });
-    $('#task-title').html($(this).attr('data-name'));
+    $('#task-title').html(el.attr('data-name'));
 
     $('.etiqDiv').each(function () {
         $(this).find('i').remove();
@@ -114,28 +29,80 @@ $(document).on('click', '.tasks', function () {
     });
 
     $('#cartDetails').modal();
-});
+}
 
-$(document).on('click', '#saveChecklist', function () {
+dashboard.addCard = function (el) {
+    $('#id_card').val(el.attr('data-card'));
+    $('#createCard').modal();
+}
+
+dashboard.saveDescription = function () {
+    $.get( saveCartDetails, { id: $('#id_task').val(), description : $('#descCart').val()} )
+        .done(function() {
+            $('#saveDesc').css('display', 'none');
+            $('#cartDetails').modal('hide');
+        });
+}
+
+dashboard.updateFavoris = function () {
+    var id_dashboard    = $('#iconFavorites').attr('data-id');
+    var favorite        = $('#iconFavorites').attr('data-fav');
+
+
+    $.get( updateFavorites, { id_dashboard: id_dashboard, fav : favorite} )
+        .done(function(data) {
+            console.log(data);
+            console.log(favorite);
+            if(data.success == true){
+                if(favorite == 1){
+                    $('#iconFavorites').removeClass('far fa-star');
+                    $('#iconFavorites').addClass('fas fa-star');
+                    $('#iconFavorites').attr('data-fav', 0);
+                }else{
+                    $('#iconFavorites').removeClass('fas fa-star');
+                    $('#iconFavorites').addClass('far fa-star');
+                    $('#iconFavorites').attr('data-fav', 1);
+                }
+            }
+        });
+}
+
+dashboard.createEtiquette = function () {
+    var etiquetteName    = $('#etiqName').val();
+    var color            = $('#etiqColor').val();
+    if(etiquetteName == ''){
+        alert('Veuillez choisir un nom d\'etiquette');
+        return
+    }
+    $.get( addEtiquettes, { id_dashboard: $('#id_dash').val(), name : etiquetteName, color: color} )
+        .done(function(data) {
+            if(data.success == true){
+                $('#etiqCreate').hide();
+                $( "#etiqList" ).load( updateEtiquetteList);
+            }
+        });
+}
+
+dashboard.saveChecklist = function () {
     $.get( saveCartChecklist, { id_card: $('#id_task').val(), name : $('#checklistText').val(), id_user: $('#id_user').val()} )
         .done(function() {
             $('#checklistForm').fadeOut();
             refreshChecklist($('#id_task').val());
             $( "#dashboard-principal" ).load( updateMainDashboard);
         });
-});
+}
 
-$(document).on('click', '#saveComment', function () {
+dashboard.saveComment = function () {
     $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
         .done(function() {
             $('#comment').val('');
             refreshComments($('#id_task').val());
             $( "#dashboard-principal" ).load( updateMainDashboard);
         });
-});
+}
 
-$(document).on('change', '.doneCheck', function () {
-    var checkbox = $(this);
+dashboard.doneChecklist = function (el) {
+    var checkbox = el;
     if(checkbox.is(':checked')){
         $.get( updateChecklist, { id: checkbox.val(), value : 1} )
             .done(function() {
@@ -151,12 +118,12 @@ $(document).on('change', '.doneCheck', function () {
                 $( "#dashboard-principal" ).load( updateMainDashboard);
             });
     }
-});
+}
 
-$(document).on('click', '.etiqDiv', function () {
-    var id_etiquette = $(this).attr('data-id');
+dashboard.etiquetteDiv = function (el) {
+    var id_etiquette = el.attr('data-id');
     var task         = $('#id_task').val();
-    var element      = $(this);
+    var element      = el;
     $('#dashboard-principal').html('');
     $.get( insertOrDeleteEtiquette, { id_etiquette: id_etiquette, id_task : task} )
         .done(function(data) {
@@ -168,6 +135,44 @@ $(document).on('click', '.etiqDiv', function () {
                 }
             });
         });
+}
+
+dashboard.addCoop = function()  {
+    $('#addCoop').modal();
+}
+
+
+
+$(document).ready(function () {
+    $('#saveDesc').css('display', 'none');
+
+    $('#descCart').bind('input propertychange', function () {
+        $('#saveDesc').css('display', 'block');
+    });
+
+    $('#addChecklist').click(function () {
+       $('#checklistForm').fadeIn();
+    });
+
+    $('#cancelChecklist').click(function () {
+        $('#checklistForm').fadeOut();
+    });
+
+    /*
+    Etiquettes section
+     */
+    $('#etiqButton').click(function () {
+        $('#etiqList').show();
+    });
+
+    $('#etiqForm').click(function () {
+        $('#etiqCreate').show();
+    });
+
+    $('#annulateEtiquette').click(function () {
+        $('#etiqCreate').hide();
+    });
+
 });
 
 function refreshChecklist(id_task){
@@ -182,9 +187,9 @@ function refreshChecklist(id_task){
 
                     if(v.done > 0){
                         progress++;
-                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" checked><label style="text-decoration: line-through;">' + v.name + '</label><br>';
+                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" checked onchange="dashboard.doneChecklist($(this))"><label style="text-decoration: line-through;">' + v.name + '</label><br>';
                     }else{
-                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck"><label>' + v.name + '</label><br>';
+                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" onchange="dashboard.doneChecklist($(this))"><label>' + v.name + '</label><br>';
                     }
                 });
                 var progressPercent = (progress*100)/count;
@@ -215,8 +220,4 @@ function refreshComments(id_task){
             $('#listComments').html(html);
             $('#countCom').html(data.length);
         });
-}
-
-function refreshEtiquettes(id_dashboard){
-
 }

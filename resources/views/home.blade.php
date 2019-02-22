@@ -16,9 +16,32 @@
                     </a>
                 @endforeach
             @endif
+            @if(count($dashboard_coop))
+                @foreach($dashboard_coop as $one)
+                    <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
+                        <div class="card" style="width: 18rem; @if($one->color != '') background-color: {{ $one->color }}!important; @endif">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $one->name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            @endif
             <h2>Tableaux personnels</h2>
             @if(count($dashboard))
                 @foreach($dashboard as $one)
+                    <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
+                        <div class="card" style="width: 18rem; @if($one->color != '') background-color: {{ $one->color }}!important; @endif">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $one->name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            @endif
+
+            @if(count($dashboard_coop))
+                @foreach($dashboard_coop as $one)
                     <a href="{{ route('dashboard', ['id'    =>  $one->id ]) }}">
                         <div class="card" style="width: 18rem; @if($one->color != '') background-color: {{ $one->color }}!important; @endif">
                             <div class="card-body">
