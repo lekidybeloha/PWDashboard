@@ -157,13 +157,13 @@
                             <h4 class="modal-title">Envoyer une invitation</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('sendInvitation') }}" id="sendInvitation">
+                            <form method="POST" action="" id="formInvite">
                                 <label>Adresse email</label>
-                                <input type="email" name="email" class="form-control" required>
+                                <input type="email" name="email" class="form-control" id="emailInvite" required>
                                 <label>Message</label>
-                                <input type="text" name="text" class="form-control" value="Je travaille sur ce projet dans PWDashboard et je voulais le partager avec vous.">
-                                <input type="hidden" name="id_dashboard" value="{{ $dashboard->id }}">
-                                <input type="submit" class="btn btn-primary form-control" value="Envoyer une invitation">
+                                <input type="text" name="text" class="form-control" id="textInvite" value="Je travaille sur ce projet dans PWDashboard et je voulais le partager avec vous.">
+                                <input type="hidden" name="id_dashboard" id="dashboardInvite" value="{{ $dashboard->id }}">
+                                <input type="submit" class="btn btn-primary form-control"  value="Envoyer une invitation" id="sendInviteBtn">
                                 @csrf
                             </form>
                         </div>
@@ -202,5 +202,6 @@
         var updateMainDashboard     = "{{ route('updateMainDashboard', ['id' => $dashboard->id]) }}";
         var checkEtiquettes         = "{{ route('checkEtiquette') }}";
         var updateEtiquetteList     = "{{ route('updateEtiquetteList', ['id' => $dashboard->id]) }}";
+        var sendingInvitation       = "{{ route('sendInvitation') }}";
     </script>
 @endsection

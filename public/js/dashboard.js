@@ -141,6 +141,27 @@ dashboard.addCoop = function()  {
     $('#addCoop').modal();
 }
 
+dashboard.sendInvitation = function() {
+    var email = $('#emailInvite').val();
+    var text = $('#textInvite').val();
+    var dashboard = $('#dashboardInvite').val();
+    var token = $("input[name$='_token']").val();
+    $.post( sendingInvitation, { email: email, text : text, id_dashboard: dashboard, _token: token} )
+        .done(function(data) {
+            if(data.success == true){
+                alert('Invitation envoyer avec succès');
+                $('#addCoop').modal('toggle');
+            }else{
+                alert(data.error);
+                $('#addCoop').modal('toggle');
+            }
+        });
+}
+
+$(document).on('click', '#sendInviteBtn', function (e) {
+    e.preventDefault();
+    dashboard.sendInvitation();
+});
 
 
 $(document).ready(function () {
