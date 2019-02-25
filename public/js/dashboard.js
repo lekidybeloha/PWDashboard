@@ -158,6 +158,22 @@ dashboard.sendInvitation = function() {
         });
 }
 
+dashboard.editListTitle = function(el) {
+    el.hide();
+    $( "input[name='cardTitle'][value="+el.html()+"]" ).css('display', 'block');
+    $( "input[name='cardTitle'][value="+el.html()+"]" ).focus();
+}
+
+dashboard.donEditList = function(el) {
+    $.get( updateList, { id: el.attr('data-id'), title : el.val()} )
+        .done(function(data) {
+            el.hide();
+            $(".card-title[data-id='"+el.attr('data-id')+"']").show();
+            $( "#dashboard-principal" ).load( updateMainDashboard);
+        });
+
+}
+
 $(document).on('click', '#sendInviteBtn', function (e) {
     e.preventDefault();
     dashboard.sendInvitation();

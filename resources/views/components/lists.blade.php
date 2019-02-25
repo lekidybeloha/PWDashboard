@@ -3,7 +3,8 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $one->title }}</h5>
+                    <h5 class="card-title" data-id="{{ $one->id }}" onclick="dashboard.editListTitle($(this))">{{ urldecode($one->title) }}</h5>
+                    <input type="text" value="{{ urldecode($one->title) }}" name="cardTitle" style="display: none" data-id="{{ $one->id }}" onblur="dashboard.donEditList($(this))" class="form-control edit-title-card">
                 </div>
                 <div>
                     @foreach($tasks as $t)

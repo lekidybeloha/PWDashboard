@@ -44,6 +44,11 @@ class WSController extends Controller
         return Checklist::updateChecklist($id_checklist, $value);
     }
 
+    public function updateList(Request $verb)
+    {
+        return Lists::updateData($verb);
+    }
+
     public function getCartsComment(Request $verb)
     {
         $id_cart = $verb->input('id');

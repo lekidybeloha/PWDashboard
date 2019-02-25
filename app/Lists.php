@@ -24,4 +24,31 @@ class Lists extends Model
         $data['color']          = 'none';
         self::insert($data);
     }
+
+    public static function updateData($verb)
+    {
+        $data   = [];
+        $update = $verb->all();
+        foreach($update as $k=>$one)
+        {
+            if($k != 'id'){
+                $data[$k] = $one;
+            }
+
+            if($k == 'title'){
+                $data[$k] = urlencode($one);
+            }
+        }
+
+        $res = self::where('id', '=', $update['id'])->update($data);
+        if($res)
+        {
+            return ['success' => TRUE];
+        }
+        else
+        {
+            return ['success' => FALSE];
+        }
+
+    }
 }
