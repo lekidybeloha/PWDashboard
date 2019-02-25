@@ -32,8 +32,67 @@ dashboard.openTask = function (el) {
 }
 
 dashboard.addCard = function (el) {
+    /*
     $('#id_card').val(el.attr('data-card'));
     $('#createCard').modal();
+    */
+    $.each($('.carte-title'), function () {
+        var one = $(this);
+       if(one.attr('data-list') == el.attr('data-card')){
+           one.show();
+           one.focus();
+       }
+    });
+
+    $.each($('.save-list'), function () {
+        var one = $(this);
+        if(one.attr('data-list') == el.attr('data-card')){
+            one.show();
+        }
+    });
+    el.hide();
+}
+
+dashboard.arbortCreateList = function (el) {
+    if(el.val() !== ''){
+        $.each($('.save-list'), function () {
+            var one = $(this);
+            if(one.attr('data-list') == el.attr('data-list')){
+                dashboard.saveList(one);
+            }
+        });
+    }else{
+        el.hide();
+        $.each($('.save-list'), function () {
+            var one = $(this);
+            if(one.attr('data-list') == el.attr('data-list')){
+                one.hide();
+            }
+        });
+        $.each($('.addCard'), function () {
+            var one = $(this);
+            if(one.attr('data-card') == el.attr('data-list')){
+                one.show();
+            }
+        });
+    }
+
+}
+
+dashboard.saveList = function (el) {
+    $.each($('.carte-title'), function () {
+        var one = $(this);
+        if(one.attr('data-list') == el.attr('data-list')){
+            if(one.val() == ''){
+
+            }else{
+                $.post( addCard, { id_card: one.attr('data-list'), name : one.val(), id_dashboard: el.attr('data-dashboard')} )
+                    .done(function(data) {
+                        $( "#dashboard-principal" ).load( updateMainDashboard);
+                    });
+            }
+        }
+    });
 }
 
 dashboard.saveDescription = function () {
@@ -160,8 +219,8 @@ dashboard.sendInvitation = function() {
 
 dashboard.editListTitle = function(el) {
     el.hide();
-    $( "input[name='cardTitle'][value="+el.html()+"]" ).css('display', 'block');
-    $( "input[name='cardTitle'][value="+el.html()+"]" ).focus();
+    $( 'input[name="cardTitle"][value="'+el.html()+'"]' ).css('display', 'block');
+    $( 'input[name="cardTitle"][value="'+el.html()+'"]' ).focus();
 }
 
 dashboard.donEditList = function(el) {

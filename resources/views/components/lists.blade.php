@@ -4,7 +4,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title" data-id="{{ $one->id }}" onclick="dashboard.editListTitle($(this))">{{ urldecode($one->title) }}</h5>
-                    <input type="text" value="{{ urldecode($one->title) }}" name="cardTitle" style="display: none" data-id="{{ $one->id }}" onblur="dashboard.donEditList($(this))" class="form-control edit-title-card">
+                    <input type="text" value="{{ urldecode($one->title) }}" name="cardTitle" style="display: none" data-id="{{ $one->id }}"
+                           onblur="dashboard.donEditList($(this))" class="form-control edit-title-card"
+                            onkeypress="if(event.keyCode==13){ dashboard.editListTitle($(this)) }">
                 </div>
                 <div>
                     @foreach($tasks as $t)
@@ -47,6 +49,10 @@
                         @endif
                     @endforeach
                 </div>
+                <textarea class="carte-title form-control" data-list="{{ $one->id }}" style="display: none" onblur="dashboard.arbortCreateList($(this))">
+
+                </textarea>
+                <button class="btn btn-success save-list" data-list="{{ $one->id }}" data-dashboard="{{ $dashboard->id }}" style="display: none;" onclick="dashboard.saveList($(this))">Enregistrer</button>
                 <button class="btn btn-primary addCard" data-card="{{ $one->id }}" onclick="dashboard.addCard($(this))">+ Ajouter une carte</button>
             </div>
         </div>

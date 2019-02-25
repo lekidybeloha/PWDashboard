@@ -86,11 +86,13 @@ class WSController extends Controller
 
     public function updateMainDashboard($id)
     {
+        $dashboard  = Dashboard::one($id);
         $lists      = Lists::getByIdDashboard($id);
         $tasks      = Task::getByDashboardId($id);
         return view('components.lists', [
                                                 'lists'     =>  $lists,
                                                 'tasks'     =>  $tasks,
+                                                'dashboard' =>  $dashboard
                                             ]);
     }
 

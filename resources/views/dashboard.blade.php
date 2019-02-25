@@ -204,5 +204,6 @@
         var updateEtiquetteList     = "{{ route('updateEtiquetteList', ['id' => $dashboard->id]) }}";
         var sendingInvitation       = "{{ route('sendInvitation') }}";
         var updateList              = "{{ route('updateList') }}";
+        var addCard                 = "{{ route('addCard') }}";
     </script>
 @endsection
