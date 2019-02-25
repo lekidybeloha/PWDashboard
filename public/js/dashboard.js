@@ -54,6 +54,7 @@ dashboard.addCard = function (el) {
 }
 
 dashboard.arbortCreateList = function (el) {
+    /*
     if(el.val() !== ''){
         $.each($('.save-list'), function () {
             var one = $(this);
@@ -75,7 +76,7 @@ dashboard.arbortCreateList = function (el) {
                 one.show();
             }
         });
-    }
+    }*/
 
 }
 
