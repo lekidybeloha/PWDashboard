@@ -88,39 +88,4 @@ class HomeController extends Controller
         Task::create($verb);
         return redirect()->route('dashboard', ['id' => $verb->input('id_dashboard')]);
     }
-
-    public function confirmInvitation($token)
-    {
-        $res = Invitations::verifyInvitation($token);
-        if($res)
-        {
-            return view('invitations.register', [
-                                                            'email'     => $res['email'],
-                                                            'token'     => $token,
-                                                            'dashboard' => $res['id_dashboard']
-                                                        ]);
-        }
-        else
-        {
-            return view('invitations.expired');
-        }
-    }
-
-    public function confirm(Request $verb)
-    {
-        $data['name']       = $verb->input('name');
-        $data['email']      = $verb->input('email');
-        $data['password']   = Hash::make($verb->input('password'));
-
-        $id = User::create($data);
-
-        Dashboard::addUserToDashboard($id->id, $verb->input('dashboard'));
-
-        $attempt = ['email' => $data['email'], 'password' => $verb->input('password')];
-
-        if(Auth::attempt($attempt))
-        {
-            redirect()->route('dashboard', ['id' => $verb->input('dashboard')]);
-        }
-    }
 }

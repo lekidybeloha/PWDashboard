@@ -44,9 +44,9 @@ class Invitations extends Model
 
         self::insert($data);
 
-        $link = route('confirmInvitation', ['email' =>  $data['email'], 'token' => $data['token']]);
+        $link = route('confirmInvitation', ['token' => $data['token']]);
 
-        Mail::raw($verb->input('text'). 'Cliquez sur ce lien pour confirmer :'.$link, function ($message) use ($verb)
+        Mail::raw($verb->input('text'). 'Cliquez sur ce lien pour confirmer : '.$link, function ($message) use ($verb)
         {
             $message->from('elkana.dimbiniaina@hotmail.com', 'PWDashboard');
             $message->to($verb->input('email'));
@@ -65,6 +65,20 @@ class Invitations extends Model
         else
         {
             return ['success' => FALSE];
+        }
+    }
+
+    public static function verifyEmailAndToken($email, $token)
+    {
+        $check = self::where('token', '=', $token)->where('email', '=', $email)->first();
+
+        if($check)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
         }
     }
 }

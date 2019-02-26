@@ -111,9 +111,4 @@ class WSController extends Controller
                                         ]);
     }
 
-    public function sendInvitation(Request $verb)
-    {
-        return Invitations::sendInvitation($verb);
-    }
-
 }

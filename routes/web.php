@@ -51,9 +51,9 @@ Route::get('/check-etiquette-task', 'WSController@checkEtiquette')->name('checkE
 Route::get('/update-etiquette-list/{id}', 'WSController@updateEtiquetteList')->name('updateEtiquetteList');
 
 //INVITATIONS
-Route::post('/sendInvitation', 'WSController@sendInvitation')->name('sendInvitation');
-Route::get('/confirm/{token}', 'HomeController@confirmInvitation')->name('confirmInvitation');
-Route::post('/confirm', 'HomeController@confirm')->name('registerInvitation');
+Route::post('/sendInvitation', 'InvitationController@sendInvitation')->name('sendInvitation');
+Route::get('/confirm/{token}', 'InvitationController@confirmInvitation')->name('confirmInvitation');
+Route::post('/confirm', 'InvitationController@confirm')->name('registerInvitation');
 
 //LISTS
 Route::get('/update-list', 'WSController@updateList')->name('updateList');
