@@ -175,7 +175,6 @@
                 </div>
             </div>
     </div>
-
 @endsection
 
 @section('footer')
@@ -186,7 +185,9 @@
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/dashboard.js') }}" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3/dist/interact.min.js"></script>
+    <script src="{{ asset('js/controllers/dashboard.js') }}" ></script>
+    <script src="{{ asset('js/controllers/draggable.js') }}" ></script>
     <script>
         var ID_DASHBOARD            = "{{ $dashboard->id }}";
         var cartDetails             = "{{ route('cartDetails') }}";
@@ -205,5 +206,5 @@
         var sendingInvitation       = "{{ route('sendInvitation') }}";
         var updateList              = "{{ route('updateList') }}";
         var addCard                 = "{{ route('addCard') }}";
-    </script>
+</script>
 @endsection

@@ -41,7 +41,7 @@
 <body>
 <div class="container">
     <div class="content">
-        <div class="title">Invitation expirée</div>
+        <div class="title">Invitation expirée ou clé invalide</div>
     </div>
 </div>
 </body>

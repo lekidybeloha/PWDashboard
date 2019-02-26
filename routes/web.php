@@ -52,7 +52,7 @@ Route::get('/update-etiquette-list/{id}', 'WSController@updateEtiquetteList')->n
 
 //INVITATIONS
 Route::post('/sendInvitation', 'WSController@sendInvitation')->name('sendInvitation');
-Route::get('/confirm/{email}/{token}', 'HomeController@confirmInvitation')->name('confirmInvitation');
+Route::get('/confirm/{token}', 'HomeController@confirmInvitation')->name('confirmInvitation');
 Route::post('/confirm', 'HomeController@confirm')->name('registerInvitation');
 
 //LISTS

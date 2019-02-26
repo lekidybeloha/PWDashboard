@@ -31,7 +31,7 @@
                                     $countComment   = count($comment) ? count($comment) : 0;
                                 }
                             @endphp
-                            <div class="tasking btn-light tasks" data-id="{{ $t->id }}" data-name="{{ $t->name }}" onclick="dashboard.openTask($(this))">
+                            <div class="tasking btn-light tasks draggable" data-id="{{ $t->id }}" data-name="{{ $t->name }}" onclick="dashboard.openTask($(this))">
                                 @php
                                     $tempEtiq = \App\Etiquettes::getEtiquettesByCarts($t->id);
                                 @endphp

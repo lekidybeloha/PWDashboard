@@ -89,13 +89,13 @@ class HomeController extends Controller
         return redirect()->route('dashboard', ['id' => $verb->input('id_dashboard')]);
     }
 
-    public function confirmInvitation($email, $token)
+    public function confirmInvitation($token)
     {
-        $res = Invitations::verifyInvitation($email, $token);
+        $res = Invitations::verifyInvitation($token);
         if($res)
         {
             return view('invitations.register', [
-                                                            'email'     => $email,
+                                                            'email'     => $res['email'],
                                                             'token'     => $token,
                                                             'dashboard' => $res['id_dashboard']
                                                         ]);

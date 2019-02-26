@@ -20,7 +20,7 @@ class Invitations extends Model
 
         $data['email']          = $verb->input('email');
         $data['id_dashboard']   = $verb->input('id_dashboard');
-        $data['token']          = rand();
+        $data['token']          = csrf_token();
         $data['created_at']     = @date('Y-m-d H:i:s');
         $data['updated_at']     = @date('Y-m-d H:i:s');
 
@@ -55,12 +55,12 @@ class Invitations extends Model
         return ['success' => TRUE];
     }
 
-    public static function verifyInvitation($email, $token)
+    public static function verifyInvitation($token)
     {
-        $check = self::where('email', '=', $email)->where('token', '=', $token)->first();
+        $check = self::where('token', '=', $token)->first();
         if($check)
         {
-            return ['success' => TRUE, 'id_dashboard' => $check->id_dashboard];
+            return ['success' => TRUE, 'id_dashboard' => $check->id_dashboard, 'email' => $check->email];
         }
         else
         {
