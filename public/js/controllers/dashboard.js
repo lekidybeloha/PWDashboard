@@ -234,6 +234,21 @@ dashboard.donEditList = function(el) {
 
 }
 
+dashboard.showCardPopover = function(el) {
+    var top     = el.offset().top;
+    var left    = el.offset().left;
+
+    $('.pop-over').css('display', 'block');
+    $('.pop-over').css('top', top);
+    $('.pop-over').css('left', left);
+    $('.pop-over').focus();
+
+}
+
+dashboard.closePopover = function (el) {
+    el.hide();
+}
+
 $(document).on('click', '#sendInviteBtn', function (e) {
     e.preventDefault();
     dashboard.sendInvitation();

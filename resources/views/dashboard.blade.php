@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="max-width: 100%;margin-top: -24px;">
         <div class="row">
             <div class="col-md-12 main-dashboard">
-                <h2>{{ $dashboard->name }}</h2>
+                <span class="dashboard-title">{{ $dashboard->name }}</span>
                 <div class="dashboard-header">
                     <a href="#" class="dashboard-param" id="updateFavorite" onclick="dashboard.updateFavoris()">
                         @if($dashboard->favoris == 0)
@@ -21,7 +21,6 @@
                         @endforeach
                     @endif
                     <div class="rounded-circle coop" onclick="dashboard.addCoop()"><i class="fas fa-user-plus"></i></div>
-                    |<a href="#" class="dashboard-param">Afficher le menu</a>
                 </div>
             </div>
             <div class="main-row" id="dashboard-principal">
@@ -175,6 +174,8 @@
                 </div>
             </div>
     </div>
+
+        @include('components.popover')
 @endsection
 
 @section('footer')
@@ -186,6 +187,10 @@
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3/dist/interact.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"></script>
+    <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"></script>
     <script src="{{ asset('js/controllers/dashboard.js') }}" ></script>
     <script src="{{ asset('js/controllers/draggable.js') }}" ></script>
     <script>

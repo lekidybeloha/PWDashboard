@@ -1,12 +1,13 @@
 @if(count($lists))
     @foreach($lists as $one)
-        <div class="col-md-3">
+        <div class="col-md-3 list-wrapper">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" data-id="{{ $one->id }}" onclick="dashboard.editListTitle($(this))">{{ urldecode($one->title) }}</h5>
+                    <span class="card-title" data-id="{{ $one->id }}" onclick="dashboard.editListTitle($(this))">{{ urldecode($one->title) }}</span>
                     <input type="text" value="{{ urldecode($one->title) }}" name="cardTitle" style="display: none" data-id="{{ $one->id }}"
                            onblur="dashboard.donEditList($(this))" class="form-control edit-title-card"
                             onkeypress="if(event.keyCode==13){ dashboard.editListTitle($(this)) }">
+                    <span class="points" onclick="dashboard.showCardPopover($(this))">...</span>
                 </div>
                 <div>
                     @foreach($tasks as $t)
@@ -37,7 +38,7 @@
                                 @endphp
                                 @if(!empty($tempEtiq))
                                     @foreach($tempEtiq as $q)
-                                        <div class="div-list-etiq" style="background-color: {{ $q->color }}">{{ $q->name }}</div>
+                                        <div class="div-list-etiq" style="background-color: {{ $q->color }}"><span class="etiqSpan">{{ $q->name }}</span> </div>
                                     @endforeach
                                     <br>
                                 @endif

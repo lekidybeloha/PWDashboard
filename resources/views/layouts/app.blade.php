@@ -28,19 +28,25 @@
 <body @if(isset($dashboard) && isset($dashboard->color) && $dashboard->color != '') style="background-color: {{ $dashboard->color }};" @endif >
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'PWDashboard') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
+            <div class="container head-bar">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    @guest
+                        @else
+                        <ul class="navbar-nav mr-auto">
+                            <li><a href="{{ route('home') }}"><span class="left-side-header homeLogo"><i class="fas fa-home"></i></span></a></li>
+                            <li><a><span class="left-side-header tabHead">Tableaux</span></a></li>
+                            <li><input type="text" class="form-control left-side-header" style="height: 32px;"></li>
+                        </ul>
+                    @endguest
 
-                    </ul>
+                    <!--Middle parts-->
+                    <a class="navbar-brand" href="{{ route('home') }}">
+                        {{ config('app.name', 'PWDashboard') }}
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
