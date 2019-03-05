@@ -27,32 +27,6 @@
             @include('components.lists')
             </div>
 
-            <!--MODAL SECTION : CREATE LIST-->
-            <div id="createList" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Créer une liste</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('addList') }}">
-                                <label>Nom de la liste</label>
-                                <input type="text" name="title" class="form-control" required>
-                                <input type="hidden" name="id_dashboard" value="{{ $dashboard->id }}">
-                                <input type="submit" class="btn btn-primary form-control create-tab" value="Créer la liste">
-                                @csrf
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
             <!--MODAL SECTION : CREATE CARD-->
             <div id="createCard" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -71,72 +45,6 @@
                                 <input type="submit" class="btn btn-primary form-control create-tab" value="Créer la carte">
                                 @csrf
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!--MODAL SECTION : CARD DETAILS-->
-            <div id="cartDetails" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="task-title"></h4>
-                        </div>
-                        <div class="modal-body" style="display: inline-flex;">
-                            <div style="width: 80%">
-                                <label>Description</label>
-                                <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
-                                <input type="hidden" value="" id="id_task">
-                                <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
-
-                                <label class="title">Checklist</label>
-                                <div class="progress">
-                                    <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div id="listChecklist">
-                                </div>
-
-                                <button class="btn btn-info" id="addChecklist">Ajout checklist</button>
-                                <div id="checklistForm" style="display: none;">
-                                    <input type="text" value="" id="checklistText" name="name" class="form-control">
-                                    <input type="hidden" value="{{ $id_user }}" name="id_user" id="id_user">
-                                    <button class="btn btn-success" id="saveChecklist" onclick="dashboard.saveChecklist()">Enregistrer</button>
-                                    <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
-                                </div>
-                                <br>
-                                <label class="title">Commentaires</label>
-                                <div id="listComments">
-                                </div>
-                                <label >Ajouter un commentaire</label>
-                                <div id="addComments">
-                                    <textarea id="comment" class="form-control"></textarea>
-                                    <button class="btn btn-success" id="saveComment" onclick="dashboard.saveComment()">Enregistrer</button>
-                                </div>
-                            </div>
-                            <div style="width: 20%; text-align: center">
-                                <label>AJOUTER A LA CARTE</label>
-                                <button type="button" class="btn btn-secondary" id="etiqButton">Etiquettes</button>
-                                <div id="etiqList">
-                                    @include('components.etiquettes')
-                                </div>
-                                <a href="#" id="etiqForm">Créer une étiquette</a>
-                                <div id="etiqCreate" style="display: none;">
-                                    <input type="text" id="etiqName" class="form-control" placeholder="nom de l'etiquette">
-                                    <label>Couleur</label>
-                                    <input type="color" id="etiqColor" class="form-control" placeholder="code couleur">
-                                    <input type="hidden" id="id_dash" class="form-control" placeholder="code couleur" value="{{ $dashboard->id }}">
-                                    <button type="button" class="btn btn-success" id="createEtiquette" onclick="dashboard.createEtiquette()">Valider</button>
-                                    <button type="button" class="btn btn-danger" id="annulateEtiquette">Annuler</button>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -176,6 +84,8 @@
     </div>
 
         @include('components.popover')
+
+        @include('components.overlay')
 @endsection
 
 @section('footer')

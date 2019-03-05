@@ -28,7 +28,13 @@ dashboard.openTask = function (el) {
             });
     });
 
-    $('#cartDetails').modal();
+    $('.window').show();
+    $('.window-overlay').show();
+}
+
+dashboard.closeOverlay = function() {
+    $('.window').hide();
+    $('.window-overlay').hide();
 }
 
 dashboard.addCard = function (el) {
@@ -233,6 +239,18 @@ dashboard.donEditList = function(el) {
         });
 
 }
+
+dashboard.createList = function(el) {
+    el.hide();
+    $('#listeCreator').show();
+}
+
+dashboard.abortList = function()    {
+    $('#listeCreator').hide();
+    $('#creatorList').show();
+}
+
+
 
 dashboard.showCardPopover = function(el) {
     var top     = el.offset().top;

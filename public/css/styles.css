@@ -106,7 +106,7 @@
 
 .createListBtn{
     height: 40px;
-
+    background: rgba(0,0,0,.15)!important;
 }
 
 .display-dashboard{
@@ -226,7 +226,10 @@ OVERLAY
     background-color: #ebeef0;
     border-radius: 2px;
     display: none;
-    margin: 48px 0 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 48px;
+    margin-bottom: 80px;
     overflow: hidden;
     position: relative;
     width: 768px;
@@ -307,4 +310,8 @@ POPOVER
 
 .etiqSpan{
     display: none;
+}
+
+.overlay-container{
+    margin: 25px;
 }

@@ -58,5 +58,18 @@
             </div>
         </div>
     @endforeach
+    <div class="col-md-3 list-wrapper" id="listeCreator" style="display: none;">
+        <div style="background-color: #dfe3e6;border-radius: .25rem;padding: 10px;">
+            <form method="POST" action="{{ route('addList') }}">
+                <label>Nom de la liste</label>
+                <input type="hidden" name="id_dashboard" value="{{ $dashboard->id }}">
+                <input type="text" value="" class="form-control edit-title-card" placeholder="Saisissez le titre de la liste" name="title" required>
+                <input type="submit" class="btn btn-success" value="Ajouter une liste">
+                <span style="margin-left: 15px; font-weight: 900; cursor: pointer;" onclick="dashboard.abortList()">X</span>
+                @csrf
+            </form>
+        </div>
+
+    </div>
 @endif
-<button class="btn btn-primary createListBtn" data-toggle="modal" data-target="#createList">Ajouter une liste</button>
+<button class="btn btn-primary createListBtn" onclick="dashboard.createList($(this))" id="creatorList">Ajouter une liste</button>
