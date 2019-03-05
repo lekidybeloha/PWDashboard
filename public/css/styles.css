@@ -315,3 +315,56 @@ POPOVER
 .overlay-container{
     margin: 25px;
 }
+
+.close-overlay{
+    float: right;
+    margin-top: -50px;
+}
+
+.overlay-description{
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
+.add-cart-list{
+    background-color: #ebeef0;
+    box-shadow: 0 1px 0 0 rgba(9,45,66,.13);
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
+    height: 32px;
+    margin-top: 8px;
+    max-width: 300px;
+    overflow: hidden;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    transition-property: background-color,border-color,box-shadow;
+    transition-duration: 85ms;
+    transition-timing-function: ease;
+}
+
+.etiqSection{
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: 600;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 4px 0;
+    min-width: 40px;
+    padding: 0 12px;
+    width: auto;
+}

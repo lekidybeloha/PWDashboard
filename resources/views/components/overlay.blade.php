@@ -7,10 +7,15 @@
                 <div>
                     <div class="overlay-header">
                         <h4 class="modal-title" id="task-title"></h4>
+                        Dans la liste de <a href="#" id="overlayListTitle"></a><br>
+                        <button type="button" class="btn btn-default close-overlay" onclick="dashboard.closeOverlay()">X</button>
                     </div>
-                    <div style="display: inline-flex;">
+                    <div style="display: inline-flex;width: 100%">
                         <div style="width: 80%">
-                            <label>Description</label>
+                            <div id="etiqSection">
+
+                            </div>
+                            <label class="overlay-description">Description</label>
                             <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
                             <input type="hidden" value="" id="id_task">
                             <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
@@ -41,7 +46,7 @@
                         </div>
                         <div style="width: 20%; text-align: center">
                             <label>AJOUTER A LA CARTE</label>
-                            <button type="button" class="btn btn-secondary" id="etiqButton">Etiquettes</button>
+                            <button type="button" class="add-cart-list" id="etiqButton">Etiquettes</button>
                             <div id="etiqList">
                                 @include('components.etiquettes')
                             </div>
@@ -56,9 +61,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" onclick="dashboard.closeOverlay()">Fermer</button>
                     </div>
                 </div>
 

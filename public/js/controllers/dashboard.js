@@ -3,6 +3,7 @@ let dashboard = {};
 dashboard.openTask = function (el) {
     $('#listChecklist').html('');
     $('#etiqCreate').hide();
+    $('#etiqSection').html('');
     var id_cart = el.attr('data-id');
     $.get( cartDetails, { id: id_cart} )
         .done(function( data ) {
@@ -16,18 +17,22 @@ dashboard.openTask = function (el) {
     $('.etiqDiv').each(function () {
         $(this).find('i').remove();
     });
-
+    var etiqSec   = '';
     $('.etiqDiv').each(function () {
-        var div = $(this);
+        var div     = $(this);
+
         $.get( checkEtiquettes, { id_etiquette: $(this).attr('data-id'), id_dashboard_task : id_cart} )
             .done(function( data ) {
-                console.log(data);
                 if(data.success == true){
+                    console.log(data);
                     div.append('<i class="fas fa-check"></i>');
+                    etiqSec = etiqSec + '<span style="background-color: '+ div.css('background-color') +'" class="etiqSection">'+ data.name.name +'</span>';
+                    $('#etiqSection').html(etiqSec);
                 }
             });
     });
 
+    $('#overlayListTitle').html(el.attr('data-list'));
     $('.window').show();
     $('.window-overlay').show();
 }

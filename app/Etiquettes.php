@@ -55,7 +55,7 @@ class Etiquettes extends Model
         $res = DB::table(self::$table_child)->where('id_etiquette', '=', $id)->where('id_dashboard_task', '=', $id_task)->first();
         if($res)
         {
-            return ['success' => TRUE];
+            return ['success' => TRUE, 'name' => self::find($id)];
         }
         else
         {
