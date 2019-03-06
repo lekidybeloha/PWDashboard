@@ -5,8 +5,18 @@ dashboard.openTask = function (el) {
     $('#etiqCreate').hide();
     $('#etiqSection').html('');
     var id_cart = el.attr('data-id');
+    $('#id_dash_card_checklist').val(id_cart);
     $.get( cartDetails, { id: id_cart} )
         .done(function( data ) {
+            $('#fakeDesc').html('Ajouter une description plus détaillée');
+            if(data.description == ''){
+                $('#overlay-description').hide();
+                $('#fakeDesc').show();
+            }else{
+                $('#overlay-description').hide();
+                $('#fakeDesc').show();
+                $('#fakeDesc').html(data.description);
+            }
             $('#descCart').val(data.description);
             $('#id_task').val(id_cart);
             refreshChecklist(id_cart);
@@ -107,11 +117,18 @@ dashboard.saveList = function (el) {
     });
 }
 
+dashboard.editDesc = function () {
+    $('#fakeDesc').hide();
+    $('#overlay-description').show();
+}
+
 dashboard.saveDescription = function () {
     $.get( saveCartDetails, { id: $('#id_task').val(), description : $('#descCart').val()} )
         .done(function() {
             $('#saveDesc').css('display', 'none');
-            $('#cartDetails').modal('hide');
+            $('#fakeDesc').html($('#descCart').val());
+            $('#overlay-description').hide();
+            $('#fakeDesc').show();
         });
 }
 
@@ -151,6 +168,13 @@ dashboard.createEtiquette = function () {
                 $('#etiqCreate').hide();
                 $( "#etiqList" ).load( updateEtiquetteList);
             }
+        });
+}
+
+dashboard.addChecklistName = function ()    {
+    $.get( createChecklist, { id: $('#id_dash_card_checklist').val(), name : $('#id-checklist').val()} )
+        .done(function(data) {
+
         });
 }
 
@@ -261,10 +285,24 @@ dashboard.showCardPopover = function(el) {
     var top     = el.offset().top;
     var left    = el.offset().left;
 
-    $('.pop-over').css('display', 'block');
-    $('.pop-over').css('top', top);
-    $('.pop-over').css('left', left);
-    $('.pop-over').focus();
+    $('#card-popover').css('display', 'block');
+    $('#card-popover').css('top', top);
+    $('#card-popover').css('left', left);
+    $('#card-popover').focus();
+
+}
+
+dashboard.showChecklistPopover = function (el)  {
+    var top     = el.offset().top;
+    var left    = el.offset().left;
+
+    $('#checklist-pop').css('display', 'block');
+    $('#checklist-pop').css('top', top);
+    $('#checklist-pop').css('left', left);
+    $('#checklist-pop').focus();
+}
+
+dashboard.createChecklist = function () {
 
 }
 

@@ -38,6 +38,7 @@ Route::get('/get-cart-checklist', 'WSController@getCartChecklist')->name('getCar
 Route::get('/update-checklist', 'WSController@updateChecklist')->name('updateChecklist');
 Route::get('/get-cart-comments', 'WSController@getCartsComment')->name('getComments');
 Route::get('/save-comments', 'WSController@saveComments')->name('saveComments');
+Route::get('/create-checklist', 'WSController@createChecklist')->name('createChecklist');
 
 //DASHBOARD
 Route::get('/update-dashboard-favorite', 'WSController@updateFavorite')->name('updateDashboardFavorite');

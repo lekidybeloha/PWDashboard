@@ -84,8 +84,9 @@
     </div>
 
         @include('components.popover')
-
         @include('components.overlay')
+        @include('components.checklist-popover')
+
 @endsection
 
 @section('footer')
@@ -121,5 +122,6 @@
         var sendingInvitation       = "{{ route('sendInvitation') }}";
         var updateList              = "{{ route('updateList') }}";
         var addCard                 = "{{ route('addCard') }}";
+        var createChecklist         = "{{ route('createChecklist') }}";
 </script>
 @endsection

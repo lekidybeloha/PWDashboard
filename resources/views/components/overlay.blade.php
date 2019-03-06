@@ -7,7 +7,7 @@
                 <div>
                     <div class="overlay-header">
                         <h4 class="modal-title" id="task-title"></h4>
-                        Dans la liste de <a href="#" id="overlayListTitle"></a><br>
+                        Dans la liste <a href="#" id="overlayListTitle"></a><br>
                         <button type="button" class="btn btn-default close-overlay" onclick="dashboard.closeOverlay()">X</button>
                     </div>
                     <div style="display: inline-flex;width: 100%">
@@ -15,10 +15,15 @@
                             <div id="etiqSection">
 
                             </div>
+
                             <label class="overlay-description">Description</label>
-                            <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
-                            <input type="hidden" value="" id="id_task">
-                            <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
+                            <div id="overlay-description">
+                                <textarea id="descCart" class="form-control">Ajouter une description ici</textarea>
+                                <input type="hidden" value="" id="id_task">
+                                <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
+                            </div>
+                            <p id="fakeDesc" class="card-detail-fake-text-area" onclick="dashboard.editDesc()"></p>
+
 
                             <label class="title">Checklist</label>
                             <div class="progress">
@@ -47,6 +52,7 @@
                         <div style="width: 20%; text-align: center">
                             <label>AJOUTER A LA CARTE</label>
                             <button type="button" class="add-cart-list" id="etiqButton">Etiquettes</button>
+                            <button type="button" class="add-cart-list" id="checklistButton" onclick="dashboard.showChecklistPopover($(this))"><i class="fas fa-check-square"></i>Checklist</button>
                             <div id="etiqList">
                                 @include('components.etiquettes')
                             </div>

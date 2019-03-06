@@ -111,4 +111,10 @@ class WSController extends Controller
                                         ]);
     }
 
+    public function createChecklist(Request $verb)
+    {
+
+        return Checklist::createChecklistName($verb);
+    }
+
 }

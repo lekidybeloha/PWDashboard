@@ -1,4 +1,4 @@
-<div class="pop-over is-shown" onblur="dashboard.closePopover($(this))" tabindex='1'>
+<div class="pop-over is-shown" id="card-popover" onblur="dashboard.closePopover($(this))" tabindex='1'>
     <div class="no-back">
         <div class="pop-over-header js-pop-over-header">
             <span class="pop-over-header-title">Liste des actions</span>
