@@ -174,12 +174,12 @@ dashboard.createEtiquette = function () {
 dashboard.addChecklistName = function ()    {
     $.get( createChecklist, { id: $('#id_dash_card_checklist').val(), name : $('#id-checklist').val()} )
         .done(function(data) {
-
+            $('#checklist-pop').hide();
         });
 }
 
-dashboard.saveChecklist = function () {
-    $.get( saveCartChecklist, { id_card: $('#id_task').val(), name : $('#checklistText').val(), id_user: $('#id_user').val()} )
+dashboard.saveChecklist = function (id_name) {
+    $.get( saveCartChecklist, { id_card: $('#id_task').val(), name : $('#textCheck_'+id_name).val(), id_user: ID_USER, id_checklist_name : id_name} )
         .done(function() {
             $('#checklistForm').fadeOut();
             refreshChecklist($('#id_task').val());
@@ -310,6 +310,15 @@ dashboard.closePopover = function (el) {
     el.hide();
 }
 
+dashboard.addChecklistElements = function (el, id)  {
+    $('.checklistForm').hide();
+    $('#checklistForm_'+id).show();
+}
+
+dashboard.closeChecklistFormElements = function(id) {
+    $('#checklistForm_'+id).hide();
+}
+
 $(document).on('click', '#sendInviteBtn', function (e) {
     e.preventDefault();
     dashboard.sendInvitation();
@@ -321,14 +330,6 @@ $(document).ready(function () {
 
     $('#descCart').bind('input propertychange', function () {
         $('#saveDesc').css('display', 'block');
-    });
-
-    $('#addChecklist').click(function () {
-       $('#checklistForm').fadeIn();
-    });
-
-    $('#cancelChecklist').click(function () {
-        $('#checklistForm').fadeOut();
     });
 
     /*
@@ -349,31 +350,61 @@ $(document).ready(function () {
 });
 
 function refreshChecklist(id_task){
-    $('#listChecklist').html('');
-    $.get( getCartChecklist, { id:id_task} )
-        .done(function(data) {
-            var html = '';
-            var count = data.length;
-            if(count > 0){
-                var progress = 0;
-                $.each(data, function (i, v) {
+    $('#checklist-overlay').html('');
+    var html = '';
+    $.get( getCartChecklistName, { id_cart:id_task} )
+        .done(function(res) {
+            if(res.length > 0){
+                $.each(res, function (index, val) {
+                    html += '<label style="display: inline-flex;">' + val.name + '</label><button class="btn button-grey" style="float: right">Supprimer</button>';
+                    jQuery.ajaxSetup({async:false});
+                    $.get( getCartChecklist, { id:id_task, name : val.id} ,)
+                        .done(function(data) {
+                            var count = data.length;
+                            if(data.length > 0){
+                                html += '<div class="progress">' +
+                                    '    <div class="progress-bar" id="progress_'+ data[0].id +'" role="progressbar" aria-valuenow="'+ data[0].id +'" aria-valuemin="0" aria-valuemax="'+ count +'" style="width:70%">' +
+                                    '    </div>' +
+                                    '  </div>';
+                            }else{
+                                html += '<div class="progress">' +
+                                    '    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:70%">' +
+                                    '    </div>' +
+                                    '  </div>';
+                            }
 
-                    if(v.done > 0){
-                        progress++;
-                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" checked onchange="dashboard.doneChecklist($(this))"><label style="text-decoration: line-through;">' + v.name + '</label><br>';
-                    }else{
-                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" onchange="dashboard.doneChecklist($(this))"><label>' + v.name + '</label><br>';
-                    }
+                            if(count > 0){
+                                var progress = 0;
+                                $.each(data, function (i, v) {
+
+                                    if(v.done > 0){
+                                        progress++;
+                                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" checked onchange="dashboard.doneChecklist($(this))"><label style="text-decoration: line-through;">' + v.name + '</label><br>';
+                                    }else{
+                                        html+= '<input type="checkbox" value="'+ v.id +'" data-cart="'+ id_task +'" class="doneCheck" onchange="dashboard.doneChecklist($(this))"><label>' + v.name + '</label><br>';
+                                    }
+                                });
+
+                                if(data.length > 0){
+                                    $('#progress_'+ data[0].id).attr('aria-valuenow', progress);
+                                }
+
+                            }
+
+                        });
+                    html += '<div id="checklistForm_'+ val.id +'" class="checklistForm" style="display: none;">' +
+                        '                                <input type="text" value="" id="textCheck_'+val.id+'" name="name" class="form-control">\n' +
+                        '                                <input type="hidden" value="" name="id_user" id="id_user">' +
+                        '                                <button class="btn btn-success" id="saveChecklist" onclick="dashboard.saveChecklist('+val.id+')">Enregistrer</button>' +
+                        '                                <a href="#" onclick="dashboard.closeChecklistFormElements('+val.id+')">X</a>' +
+                        '                            </div>'
+                    html += '<button class="btn button-grey" onclick="dashboard.addChecklistElements($(this), '+ val.id +')">Ajouter un élément</button><br>';
                 });
-                var progressPercent = (progress*100)/count;
-                $('#checkProgress').attr('aria-valuenow', progress);
-                $('#checkProgress').attr('aria-valuemax', count);
-                $('#checkProgress').css('width', progressPercent + '%');
-                $('#listChecklist').html(html);
-                $('#countCheck').html(data.length);
-                $('#doneCheck').html(progress);
+                $('#checklist-overlay').html(html);
             }
+
         });
+
 }
 
 function refreshComments(id_task){

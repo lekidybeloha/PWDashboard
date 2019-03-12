@@ -15,8 +15,9 @@
                             @php
                                 //Need to be inside controllers->update necessary
                                 $countCheck     = 0;
-                                $check          = \App\Checklist::getByCarts($t->id);
+                                //$check          = \App\Checklist::getByCarts($t->id);
                                 $checkDone      = 0;
+                                /*
                                 if($check){
                                     $countCheck     = count($check) ? count($check) : 0;
                                     foreach ($check as $c){
@@ -24,13 +25,14 @@
                                             $checkDone++;
                                         }
                                     }
-                                }
+                                }*/
 
                                 $countComment   = 0;
-                                $comment        = \App\Comments::getByCart($t->id);
+                                //$comment        = \App\Comments::getByCart($t->id);
+                                /*
                                 if($comment){
                                     $countComment   = count($comment) ? count($comment) : 0;
-                                }
+                                }*/
                             @endphp
                             <div class="tasking btn-light tasks draggable" data-id="{{ $t->id }}" data-name="{{ $t->name }}" data-list="{{ urldecode($one->title) }}" onclick="dashboard.openTask($(this))">
                                 @php

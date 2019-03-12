@@ -400,7 +400,7 @@ input[type=text]:hover, textarea:hover {
     box-shadow: inset 0 0 0 2px #dfe3e6;
 }
 
-input:not([type=file]), textarea {
+ textarea, .button-block {
     background-color: #fafcfc;
     border: none;
     box-shadow: inset 0 0 0 2px #dfe3e6;
@@ -415,4 +415,19 @@ input:not([type=file]), textarea {
     transition-property: background-color,border-color,box-shadow;
     transition-duration: 85ms;
     transition-timing-function: ease;
+}
+
+.button-grey{
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: #17394d;
+    font-weight: 400;
+    background-color: rgba(9,45,66,.08);
+}
+
+.progress{
+    margin-top: 25px;
+    margin-bottom: 25px;
 }

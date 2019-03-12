@@ -123,5 +123,7 @@
         var updateList              = "{{ route('updateList') }}";
         var addCard                 = "{{ route('addCard') }}";
         var createChecklist         = "{{ route('createChecklist') }}";
+        var getCartChecklistName    = "{{ route('getCartChecklistName') }}";
+        var ID_USER                 = "{{ $id_user }}";
 </script>
 @endsection

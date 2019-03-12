@@ -34,7 +34,8 @@ class WSController extends Controller
     public function getCartChecklist(Request $verb)
     {
         $id_cart = $verb->input('id');
-        return Checklist::getByCarts($id_cart);
+        $id_name = $verb->input('name');
+        return Checklist::getByCarts($id_cart, $id_name);
     }
 
     public function updateChecklist(Request $verb)
@@ -115,6 +116,11 @@ class WSController extends Controller
     {
 
         return Checklist::createChecklistName($verb);
+    }
+
+    public function getCartChecklistName(Request $verb)
+    {
+        return Checklist::getChecklistName($verb->input('id_cart'));
     }
 
 }

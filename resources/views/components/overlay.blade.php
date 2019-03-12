@@ -11,7 +11,7 @@
                         <button type="button" class="btn btn-default close-overlay" onclick="dashboard.closeOverlay()">X</button>
                     </div>
                     <div style="display: inline-flex;width: 100%">
-                        <div style="width: 80%">
+                        <div style="width: 80%;margin-right: 25px;">
                             <div id="etiqSection">
 
                             </div>
@@ -25,20 +25,10 @@
                             <p id="fakeDesc" class="card-detail-fake-text-area" onclick="dashboard.editDesc()"></p>
 
 
-                            <label class="title">Checklist</label>
-                            <div class="progress">
-                                <div class="progress-bar" id="checkProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div id="listChecklist">
+                            <div id="checklist-overlay">
+
                             </div>
 
-                            <button class="btn btn-info" id="addChecklist">Ajout checklist</button>
-                            <div id="checklistForm" style="display: none;">
-                                <input type="text" value="" id="checklistText" name="name" class="form-control">
-                                <input type="hidden" value="{{ $id_user }}" name="id_user" id="id_user">
-                                <button class="btn btn-success" id="saveChecklist" onclick="dashboard.saveChecklist()">Enregistrer</button>
-                                <button class="btn btn-danger" id="cancelChecklist">Annuler</button>
-                            </div>
                             <br>
                             <label class="title">Commentaires</label>
                             <div id="listComments">
