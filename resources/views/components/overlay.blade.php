@@ -41,10 +41,10 @@
                         </div>
                         <div style="width: 20%; text-align: center">
                             <label>AJOUTER A LA CARTE</label>
-                            <button type="button" class="add-cart-list" id="etiqButton">Etiquettes</button>
+                            <button type="button" class="add-cart-list" id="etiqButton" onclick="dashboard.showEtiquettePopover($(this))">Etiquettes</button>
                             <button type="button" class="add-cart-list" id="checklistButton" onclick="dashboard.showChecklistPopover($(this))"><i class="fas fa-check-square"></i>Checklist</button>
                             <div id="etiqList">
-                                @include('components.etiquettes')
+
                             </div>
                             <a href="#" id="etiqForm">Créer une étiquette</a>
                             <div id="etiqCreate" style="display: none;">

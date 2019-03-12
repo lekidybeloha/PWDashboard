@@ -86,6 +86,7 @@
         @include('components.popover')
         @include('components.overlay')
         @include('components.checklist-popover')
+        @include('components.etiquettes-popover')
 
 @endsection
 
@@ -104,6 +105,7 @@
     <script src="https://unpkg.com/muuri@0.7.1/dist/muuri.min.js"></script>
     <script src="{{ asset('js/controllers/dashboard.js') }}" ></script>
     <script src="{{ asset('js/controllers/draggable.js') }}" ></script>
+    <script src="{{ asset('js/functions.js') }}" ></script>
     <script>
         var ID_DASHBOARD            = "{{ $dashboard->id }}";
         var cartDetails             = "{{ route('cartDetails') }}";
