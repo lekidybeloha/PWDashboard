@@ -47,14 +47,7 @@
 
                             </div>
                             <a href="#" id="etiqForm">Créer une étiquette</a>
-                            <div id="etiqCreate" style="display: none;">
-                                <input type="text" id="etiqName" class="form-control" placeholder="nom de l'etiquette">
-                                <label>Couleur</label>
-                                <input type="color" id="etiqColor" class="form-control" placeholder="code couleur">
-                                <input type="hidden" id="id_dash" class="form-control" placeholder="code couleur" value="{{ $dashboard->id }}">
-                                <button type="button" class="btn btn-success" id="createEtiquette" onclick="dashboard.createEtiquette()">Valider</button>
-                                <button type="button" class="btn btn-danger" id="annulateEtiquette">Annuler</button>
-                            </div>
+
                         </div>
 
                     </div>

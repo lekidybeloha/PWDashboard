@@ -431,3 +431,12 @@ input[type=text]:hover, textarea:hover {
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.pop-over-header-back-btn {
+    display: none;
+    padding: 10px 8px 10px 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}

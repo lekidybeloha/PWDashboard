@@ -154,8 +154,23 @@ dashboard.openCreateEtiquette = function (el)   {
     $('.etiqLists').hide();
     $('.etiq-create').show();
     el.hide();
+    $('.icon-back').show();
 }
 
+dashboard.closeCreateEtiquette = function(el)   {
+    $('.etiqLists').show();
+    $('.etiq-create').hide();
+    el.hide();
+    $('.createListBtn').show();
+}
+
+$(document).on('click', '.etiqColor', function () {
+   $.each($('.etiqColor'), function () {
+       $(this).find('i').remove();
+   })
+
+   $(this).append('<i class="fas fa-check"></i>');
+});
 
 dashboard.createEtiquette = function () {
     var etiquetteName    = $('#etiqName').val();

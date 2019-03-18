@@ -1,6 +1,7 @@
 <div class="etiquettePop pop-over is-shown" style="display: none" id="etiquette-pop">
     <div class="no-back">
         <div class="pop-over-header js-pop-over-header">
+            <a href="#" class="pop-over-header-back-btn icon-sm icon-back is-shown" onclick="dashboard.closeCreateEtiquette($(this))"><</a>
             <span class="pop-over-header-title">Etiquettes</span>
             <a href="#" class="pop-over-header-close-btn icon-sm icon-close" onclick="dashboard.closePopover($('#etiquette-pop'))">X</a>
         </div>
