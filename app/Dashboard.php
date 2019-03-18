@@ -33,7 +33,8 @@ class Dashboard extends Model
         $data['favoris']        = 0;
         $data['created_at']     = @date('Y-m-d H:i:s');
         $data['updated_at']     = @date('Y-m-d H:i:s');
-        self::insert($data);
+        $id_dashboard           = self::insertGetId($data);
+        return $id_dashboard;
     }
 
     public static function updateFavoris($verb)

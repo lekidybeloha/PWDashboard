@@ -6,7 +6,7 @@
         </div>
         <div>
             <div class="pop-over-content js-pop-over-content u-fancy-scrollbar js-tab-parent" style="max-height: 300px;">
-                @if(empty($etiquettes))
+                @if(!count($etiquettes))
                 <div id="default">
                     <div>
                         <span class="etiqSection" style="width: 80%;background-color:#519839;"></span><i class="fas fa-pen etiqSection"></i>
@@ -30,6 +30,7 @@
                 @else
                     @include('components.etiquettes')
                 @endif
+                    <button class="btn createListBtn form-control" style="margin-top: 10px" onclick="dashboard.openCreateEtiquette($(this))">Créer une nouvelle étiquette</button>
             </div>
         </div>
     </div>

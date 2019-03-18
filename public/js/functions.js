@@ -11,17 +11,18 @@ function refreshChecklist(id_task){
                     $.get( getCartChecklist, { id:id_task, name : val.id} ,)
                         .done(function(data) {
                             var count = data.length;
+                            console.log(data);
                             if(data.length > 0){
                                 html += '<div class="progress">' +
                                     '    <div class="progress-bar" id="progress_'+ data[0].id +'" role="progressbar" aria-valuenow="'+ data[0].id +'" aria-valuemin="0" aria-valuemax="'+ count +'" style="width:0%">' +
                                     '    </div>' +
                                     '  </div>';
-                            }else{
+                            }/*else{
                                 html += '<div class="progress">' +
                                     '    <div class="progress-bar" id="progress_'+ data[0].id +'" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" style="width:0%">' +
                                     '    </div>' +
                                     '  </div>';
-                            }
+                            }*/
 
                             if(count > 0){
                                 var progress = 0;

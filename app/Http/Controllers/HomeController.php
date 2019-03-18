@@ -55,7 +55,15 @@ class HomeController extends Controller
 
     public function add(Request $verb)
     {
-        Dashboard::create($verb);
+        $id     = Dashboard::create($verb);
+        $data   = ['#519839', '#d9b51c', '#cd8313', '#b04632', '#89609e', '#055a8c'];
+        foreach($data as $one)
+        {
+            $data['id_dashboard']   = $id;
+            $data['name']           = ' ';
+            $data['color']          = $one;
+            Etiquettes::create($data);
+        }
         return redirect()->route('home');
     }
 

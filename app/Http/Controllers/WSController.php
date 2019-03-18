@@ -68,7 +68,10 @@ class WSController extends Controller
 
     public function addEtiquette(Request $verb)
     {
-        return Etiquettes::create($verb);
+        $data['id_dashboard']   = $verb->input('id_dashboard');
+        $data['name']           = $verb->input('name');
+        $data['color']          = $verb->input('color');
+        return Etiquettes::create($data);
     }
 
     public function etiquettesList(Request $verb)

@@ -34,9 +34,9 @@ class Etiquettes extends Model
 
     public static function create($verb)
     {
-        $data['id_dashboard']   = $verb->input('id_dashboard');
-        $data['name']           = $verb->input('name');
-        $data['color']          = $verb->input('color');
+        $data['id_dashboard']   = $verb['id_dashboard'];
+        $data['name']           = $verb['name'];
+        $data['color']          = $verb['color'];
         $data['created_at']     = @date('Y-m-d H:i:s');
         $data['updated_at']     = @date('Y-m-d H:i:s');
         $res = self::insert($data);

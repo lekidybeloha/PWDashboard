@@ -23,18 +23,13 @@ dashboard.openTask = function (el) {
             refreshComments(id_cart);
         });
     $('#task-title').html(el.attr('data-name'));
-
-    $('.etiqDiv').each(function () {
-        $(this).find('i').remove();
-    });
     var etiqSec   = '';
-    $('.etiqDiv').each(function () {
+    $('.etiqSection').each(function () {
         var div     = $(this);
 
         $.get( checkEtiquettes, { id_etiquette: $(this).attr('data-id'), id_dashboard_task : id_cart} )
             .done(function( data ) {
                 if(data.success == true){
-                    console.log(data);
                     div.append('<i class="fas fa-check"></i>');
                     etiqSec = etiqSec + '<span style="background-color: '+ div.css('background-color') +'" class="etiqSection">'+ data.name.name +'</span>';
                     $('#etiqSection').html(etiqSec);
@@ -154,6 +149,13 @@ dashboard.updateFavoris = function () {
             }
         });
 }
+
+dashboard.openCreateEtiquette = function (el)   {
+    $('.etiqLists').hide();
+    $('.etiq-create').show();
+    el.hide();
+}
+
 
 dashboard.createEtiquette = function () {
     var etiquetteName    = $('#etiqName').val();
