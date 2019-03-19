@@ -110,8 +110,10 @@ class WSController extends Controller
     public function updateEtiquetteList($id)
     {
         $etiquettes = Etiquettes::wsAllByDashboard($id);
+        $dashboard  = Dashboard::one($id);
         return view('components.etiquettes', [
-                                            'etiquettes'=>  $etiquettes
+                                            'etiquettes'=>  $etiquettes,
+                                            'dashboard' =>  $dashboard
                                         ]);
     }
 

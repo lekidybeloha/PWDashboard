@@ -170,6 +170,7 @@ $(document).on('click', '.etiqColor', function () {
    })
 
    $(this).append('<i class="fas fa-check"></i>');
+   $('#etiqColor').val($(this).css('background-color'));
 });
 
 dashboard.createEtiquette = function () {
@@ -182,8 +183,21 @@ dashboard.createEtiquette = function () {
     $.get( addEtiquettes, { id_dashboard: $('#id_dash').val(), name : etiquetteName, color: color} )
         .done(function(data) {
             if(data.success == true){
-                $('#etiqCreate').hide();
-                $( "#etiqList" ).load( updateEtiquetteList);
+                ;
+                $('#etiqSection').html('');
+                var etiqSec   = '';
+                $('.etiqSection').each(function () {
+                    var div     = $(this);
+
+                    $.get( checkEtiquettes, { id_etiquette: $(this).attr('data-id'), id_dashboard_task : $('#id_dash_card_checklist').val()} )
+                        .done(function( data ) {
+                            if(data.success == true){
+                                div.append('<i class="fas fa-check"></i>');
+                                etiqSec = etiqSec + '<span style="background-color: '+ div.css('background-color') +'" class="etiqSection">'+ data.name.name +'</span>';
+                                $('#etiqSection').html(etiqSec);
+                            }
+                        });
+                });
             }
         });
 }
@@ -205,7 +219,7 @@ dashboard.saveChecklist = function (id_name) {
 }
 
 dashboard.saveComment = function () {
-    $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: $('#id_user').val()} )
+    $.get( saveComments, { id_task: $('#id_task').val(), comment : $('#comment').val(), id_user: ID_USER} )
         .done(function() {
             $('#comment').val('');
             refreshComments($('#id_task').val());

@@ -86,6 +86,10 @@
         @include('components.popover')
         @include('components.overlay')
         @include('components.checklist-popover')
+        @php
+            $dash = '';
+            $dash = $dashboard->id ;
+        @endphp
         @include('components.etiquettes-popover')
 
 @endsection

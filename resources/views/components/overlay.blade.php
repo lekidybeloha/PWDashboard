@@ -41,12 +41,14 @@
                         </div>
                         <div style="width: 20%; text-align: center">
                             <label>AJOUTER A LA CARTE</label>
-                            <button type="button" class="add-cart-list" id="etiqButton" onclick="dashboard.showEtiquettePopover($(this))">Etiquettes</button>
-                            <button type="button" class="add-cart-list" id="checklistButton" onclick="dashboard.showChecklistPopover($(this))"><i class="fas fa-check-square"></i>Checklist</button>
+                            <button type="button" class="add-cart-list" id="etiqButton" onclick="dashboard.showEtiquettePopover($(this))"><span style="margin-left: 5px">Etiquettes</span></button>
+                            <button type="button" class="add-cart-list" id="checklistButton" onclick="dashboard.showChecklistPopover($(this))"><i class="fas fa-check-square"></i><span style="margin-left: 5px">Checklist</span></button>
+                            <button type="button" class="add-cart-list" ><i class="far fa-clock"></i><span style="margin-left: 5px">Date limite</span></button>
+                            <!--
                             <div id="etiqList">
 
                             </div>
-                            <a href="#" id="etiqForm">Créer une étiquette</a>
+                            <a href="#" id="etiqForm">Créer une étiquette</a>-->
 
                         </div>
 
