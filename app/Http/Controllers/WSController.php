@@ -10,6 +10,7 @@ use App\Invitations;
 use App\TaskDetails;
 use App\Lists;
 use App\Task;
+use App\TaskFiles;
 use Illuminate\Http\Request;
 
 class WSController extends Controller
@@ -126,6 +127,44 @@ class WSController extends Controller
     public function getCartChecklistName(Request $verb)
     {
         return Checklist::getChecklistName($verb->input('id_cart'));
+    }
+
+    public function updateDueDate(Request $verb)
+    {
+        $data['id']         = $verb->input('id');
+        $data['dueDate']    = $verb->input('due_date');
+        return TaskDetails::updateDueDate($data);
+    }
+
+    public function getLists(Request $verb)
+    {
+        return Lists::getByIdDashboard($verb->input('id_dashboard'));
+    }
+
+    public function moveList(Request $verb)
+    {
+        $id_cart    = $verb->input('id_cart');
+        $new_value  = $verb->input('position');
+        return Lists::move($id_cart, $new_value);
+    }
+
+    public function archiveList(Request $verb)
+    {
+        return Lists::archive($verb->input('id'));
+    }
+
+    public function uploadFile(Request $verb)
+    {
+        $id_task = $verb->input('id_task');
+        $path    = $verb->file('file')->store('public');
+        TaskFiles::storeFiles($id_task, $path);
+
+        return redirect()->route('dashboard', ['id' => $verb->input('id_dashboard')]);
+    }
+
+    public function getFiles(Request $verb)
+    {
+        return TaskFiles::getFiles($verb->input('id_cart'));
     }
 
 }

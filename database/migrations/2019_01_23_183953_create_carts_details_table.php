@@ -17,6 +17,8 @@ class CreateCartsDetailsTable extends Migration
             $table->increments('id');
             $table->integer('id_dashboard_task');
             $table->text('description');
+            $table->dateTime('due_date')->nullable(true)->default(null);
+            $table->integer('position');
             $table->timestamps();
         });
     }

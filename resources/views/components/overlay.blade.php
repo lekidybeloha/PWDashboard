@@ -15,6 +15,11 @@
                             <div id="etiqSection">
 
                             </div>
+                            <br>
+                            <div id="dueDateSection">
+                                <h3>DATE LIMITE</h3>
+                                <span id="dueDateText"></span>
+                            </div>
 
                             <label class="overlay-description">Description</label>
                             <div id="overlay-description">
@@ -23,6 +28,9 @@
                                 <button class="btn btn-success" id="saveDesc" onclick="dashboard.saveDescription()">Enregistrer</button>
                             </div>
                             <p id="fakeDesc" class="card-detail-fake-text-area" onclick="dashboard.editDesc()"></p>
+
+
+                            @include('components.files')
 
 
                             <div id="checklist-overlay">
@@ -43,7 +51,8 @@
                             <label>AJOUTER A LA CARTE</label>
                             <button type="button" class="add-cart-list" id="etiqButton" onclick="dashboard.showEtiquettePopover($(this))"><span style="margin-left: 5px">Etiquettes</span></button>
                             <button type="button" class="add-cart-list" id="checklistButton" onclick="dashboard.showChecklistPopover($(this))"><i class="fas fa-check-square"></i><span style="margin-left: 5px">Checklist</span></button>
-                            <button type="button" class="add-cart-list" ><i class="far fa-clock"></i><span style="margin-left: 5px">Date limite</span></button>
+                            <button type="button" class="add-cart-list" onclick="dashboard.openDueDate($(this))"><i class="far fa-clock"></i><span style="margin-left: 5px">Date limite</span></button>
+                            <button type="button" class="add-cart-list" onclick="dashboard.openUploadPopover($(this))" ><i class="fas fa-paperclip"></i><span style="margin-left: 5px">Pièce jointe</span></button>
                             <!--
                             <div id="etiqList">
 

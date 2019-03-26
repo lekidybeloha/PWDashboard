@@ -59,3 +59,14 @@ Route::post('/confirm', 'InvitationController@confirm')->name('registerInvitatio
 
 //LISTS
 Route::get('/update-list', 'WSController@updateList')->name('updateList');
+Route::get('/get-list', 'WSController@getLists')->name('getLists');
+Route::get('/move-list', 'WSController@moveList')->name('moveList');
+Route::get('/archive-list', 'WSController@archiveList')->name('archiveList');
+
+//DUE DATE
+Route::get('/update-duedate', 'WSController@updateDueDate')->name('updateDueDate');
+
+//FILES
+Route::post('/upload-file', 'WSController@uploadFile')->name('uploadFile');
+Route::get('/get-file', 'WSController@getFiles')->name('getFiles');
+

@@ -22,6 +22,7 @@ class Task extends Model
         $data['name']           = $verb->input('name');
         $data['id_dashboard']   = $verb->input('id_dashboard');
         $data['id_cart']        = $verb->input('id_card');
+        $data['archive']        = 0;
         $data['created_at']     = @date('Y-m-d H:i:s');
         $data['updated_at']     = @date('Y-m-d H:i:s');
         $id = self::insertGetId($data);

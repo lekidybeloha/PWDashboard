@@ -9,19 +9,23 @@ class Lists extends Model
     //
     protected $table        = 'carts';
     protected $primaryKey   = 'id';
+    protected $fillable     = ['title', 'color', 'position', 'archive'];
 
     public static function getByIdDashboard($id)
     {
-        $res = self::where('id_dashboard', '=', $id)->get();
+        $res = self::where('id_dashboard', '=', $id)->where('archive', '=', 0)->orderBy('position')->get();
 
         return $res;
     }
 
     public static function create($verb)
     {
+        $count = self::where('id_dashboard', '=', $verb->input('id_dashboard'))->count();
         $data['id_dashboard']   = $verb->input('id_dashboard');
         $data['title']          = $verb->input('title');
         $data['color']          = 'none';
+        $data['position']       = $count + 1;
+        $data['archive']        = 0;
         self::insert($data);
     }
 
@@ -50,5 +54,18 @@ class Lists extends Model
             return ['success' => FALSE];
         }
 
+    }
+
+    public static function move($id_cart, $new_value)
+    {
+        $lastValue  = self::find($id_cart);
+        $temp       = self::where('position', '=', $new_value)->first();
+        self::find($id_cart)->update(['position' => $new_value]);
+        self::find($temp->id)->update(['position' => $lastValue->id]);
+    }
+
+    public static function archive($id)
+    {
+        self::find($id)->update(['archive' => 1]);
     }
 }

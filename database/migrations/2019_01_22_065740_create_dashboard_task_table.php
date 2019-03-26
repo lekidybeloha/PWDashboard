@@ -18,7 +18,7 @@ class CreateDashboardTaskTable extends Migration
             $table->integer('id_dashboard');
             $table->string('name');
             $table->integer('id_cart');
-            $table->dateTime('due_date')->nullable(true)->default(null);
+            $table->boolean('archive');
             $table->timestamps();
         });
     }

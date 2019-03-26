@@ -7,9 +7,9 @@
                     <input type="text" value="{{ urldecode($one->title) }}" name="cardTitle" style="display: none" data-id="{{ $one->id }}"
                            onblur="dashboard.donEditList($(this))" class="form-control edit-title-card"
                             onkeypress="if(event.keyCode==13){ dashboard.editListTitle($(this)) }">
-                    <span class="points" onclick="dashboard.showCardPopover($(this))">...</span>
+                    <span class="points" onclick="dashboard.showCardPopover($(this), {{ $one->id }})">...</span>
                 </div>
-                <div>
+                <ul class="board-column-content">
                     @foreach($tasks as $t)
                         @if($t->id_cart == $one->id)
                             @php
@@ -34,7 +34,7 @@
                                     $countComment   = count($comment) ? count($comment) : 0;
                                 }*/
                             @endphp
-                            <div class="tasking btn-light tasks draggable" data-id="{{ $t->id }}" data-name="{{ $t->name }}" data-list="{{ urldecode($one->title) }}" onclick="dashboard.openTask($(this))">
+                            <li class="tasking btn-light tasks draggable" draggable="true" data-id="{{ $t->id }}" data-name="{{ $t->name }}" data-list="{{ urldecode($one->title) }}" onclick="dashboard.openTask($(this))">
                                 @php
                                     $tempEtiq = \App\Etiquettes::getEtiquettesByCarts($t->id);
                                 @endphp
@@ -47,11 +47,11 @@
                                 {{ $t->name }}<br>
                                 <span style="@if($countCheck == 0) display: none; @endif @if($countCheck == $checkDone) background-color:#61bd4f; @endif" ><i class="fas fa-check-square"></i><span class="indice" id="doneCheck">{{ $checkDone }}</span>/<span class="indice" id="countCheck">{{ $countCheck }}</span></span>
                                 <span @if($countComment == 0) style="display: none;" @endif><i class="fas fa-comment"></i><span class="indice" id="countCom">{{ $countComment }}</span></span>
-                            </div>
+                            </li>
 
                         @endif
                     @endforeach
-                </div>
+                </ul>
                 <textarea class="carte-title form-control" data-list="{{ $one->id }}" style="display: none" onblur="dashboard.arbortCreateList($(this))">
 
                 </textarea>

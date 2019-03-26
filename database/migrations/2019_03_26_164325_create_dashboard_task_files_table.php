@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCartsTable extends Migration
+class CreateDashboardTaskFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateCartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('dashboard_task_files', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_dashboard');
-            $table->string('title');
-            $table->string('color');
-            $table->integer('position');
-            $table->boolean('archive');
+            $table->integer('id_dashboard_task');
+            $table->text('link');
+            $table->boolean('dropped');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateCartsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('dashboard_task_files');
     }
 }
