@@ -6,7 +6,7 @@ Happy coding à tous!
 Mise en place :<br>
 1- git clone<br>
 2- récupérer un .htaccess natif laravel<br>
-3- créer le fichier .env avec votre configuration
+3- créer le fichier .env avec votre configuration<br>
 4- composer install<br>
 5- php artisan key:generate<br>
 6- php artisan migrate<br>
